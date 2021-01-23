@@ -33,38 +33,25 @@ echo "Live website has version: ${WP_CORE_VERSION_LIVE_WEBSITE}"
 
 # downgrade current ddev site to that wp version
 wp core update --version=${WP_CORE_VERSION_LIVE_WEBSITE} --force --path=${DDEV_DOCROOT}
+# TODO: more commands needed?
 
+# TODO: Implement this!
 exit 1;
 
 # rsync updraft backup to local temp folder
-mkdir /tmp/updraft
+mkdir -p /tmp/updraft
 echo "Sync backup files from remote server to local server"
 # TODO: only the newest, only with a specific nonce in it?
 rsync -avzh ${SSH_USER_HOST}:${SSH_WORDPRESS_PATH}/wp-content/updraft/ /tmp/updraft/
 
-# Install wp core version from remote, password will be given on commandline
-# This is needed because updraftplus free does not backup wp core files (MoreFiles addon needed)
-# Important set --path=${DDEV_DOCROOT} for each command
-ddev exec wp core download --version=${WP_CORE_VERSION_LIVE_WEBSITE} --locale=de_DE --path=${DDEV_DOCROOT}
-ddev exec wp config create --dbname=db --dbuser=db --dbpass=db --dbhost=db --path=${DDEV_DOCROOT}
-ddev exec wp core install --url=${DDEV_PRIMARY_URL} --title=FreshPlainWordpress --admin_user=admin --admin_password=admin --admin_email=noreply@26272727232.notexisting --path=${DDEV_DOCROOT}
-ddev exec wp config set AUTOMATIC_UPDATER_DISABLED true --raw --path=${DDEV_DOCROOT}
+# TODO: use WP CLI and Migrator:
 
-echo "Fresh wordpress installed: "
-echo ${DDEV_PRIMARY_URL}/wp-admin/
+# get latest nonce? via wp updraftplus get_latest_full_backup ? 
+UPDRAFT_NONCE=`wp updraftplus get_latest_full_backup --path=${DDEV_DOCROOT}`
+echo "Got nonce from updraft: ${WP_CORE_VERSION_LIVE_WEBSITE}"
 
-# TODO: test on windows (use start)
-open ${DDEV_PRIMARY_URL}
+# run restore process
+echo "Start restore with --migration flag turned on..."
+wp updraftplus restore ${UPDRAFT_NONCE} --migration --path=${DDEV_DOCROOT}
 
-#TODO: use this from launch?
-#case $OSTYPE in
-#  linux-gnu)
-#    xdg-open ${FULLURL}
-#    ;;
-#  "darwin"*)
-#    open ${FULLURL}
-#    ;;
-#  "win*"* | "msys"*)
-#    start ${FULLURL}
-#    ;;
-#esac
+echo "Restore ended, have fun!
