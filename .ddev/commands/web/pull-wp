@@ -6,7 +6,7 @@
 ## (Remote path - no trailing slash!)
 
 # We use a subdirectory, see "docroot" in .ddev/config.yaml
-# TODO: $DDEV_DOCROOT is empty?
+# TODO: $DDEV_DOCROOT is empty, otherwise we could use it?
 cd /var/www/html/wordpress/
 
 if [ -z "$1" ]
