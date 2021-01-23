@@ -13,7 +13,7 @@ Scared wordpress updates will break your wordpress site? Not anymore. Use the op
 - SSH and rsync on remote server/webspace (not all webspaces support this)
 - [Remote sites only need the free version of updraftplus plugin, but it is better to install it via .zip as well from https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/]
 
-## Install
+## Install / Setup
 
 1. **Clone this repository, open folder in terminal**
 
