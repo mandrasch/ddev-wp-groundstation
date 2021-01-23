@@ -1,0 +1,70 @@
+#!/bin/bash
+
+## Description: Migrate a remote website to a local DDEV
+## Usage: pull-wp
+## Example: "pull-wp sshuser@host.xyz /html/wordpress"
+## (No trailing slash!)
+
+if [ -z "$1" ]
+  then
+    echo "Please provide sshuser@sshost.xyz information. :-)"
+    exit 1
+  else
+    SSH_USER_HOST="${1}"
+fi
+
+if [ -z "$2" ]
+  then
+    echo "Please provide path to remote wordpress information. :-)"
+    exit 1
+  else
+    SSH_WORDPRESS_PATH="${2}"
+fi
+
+if [ -d '/var/www/html/wordpress/wp-admin/' ]
+then 
+  echo "Wordpress installation found, please clean/reset it before a new installation with ddev delete-wp"
+  exit 2;
+fi
+
+# get remote wordpress version, save it as var
+WP_CORE_VERSION_LIVE_WEBSITE=`ssh ${SSH_USER_HOST} wp core version --path=${SSH_WORDPRESS_PATH}`
+echo "Live website has version: ${WP_CORE_VERSION_LIVE_WEBSITE}"
+
+# downgrade current ddev site to that wp version
+wp core update --version=${WP_CORE_VERSION_LIVE_WEBSITE} --force --path=${DDEV_DOCROOT}
+
+exit 1;
+
+# rsync updraft backup to local temp folder
+mkdir /tmp/updraft
+echo "Sync backup files from remote server to local server"
+# TODO: only the newest, only with a specific nonce in it?
+rsync -avzh ${SSH_USER_HOST}:${SSH_WORDPRESS_PATH}/wp-content/updraft/ /tmp/updraft/
+
+# Install wp core version from remote, password will be given on commandline
+# This is needed because updraftplus free does not backup wp core files (MoreFiles addon needed)
+# Important set --path=${DDEV_DOCROOT} for each command
+ddev exec wp core download --version=${WP_CORE_VERSION_LIVE_WEBSITE} --locale=de_DE --path=${DDEV_DOCROOT}
+ddev exec wp config create --dbname=db --dbuser=db --dbpass=db --dbhost=db --path=${DDEV_DOCROOT}
+ddev exec wp core install --url=${DDEV_PRIMARY_URL} --title=FreshPlainWordpress --admin_user=admin --admin_password=admin --admin_email=noreply@26272727232.notexisting --path=${DDEV_DOCROOT}
+ddev exec wp config set AUTOMATIC_UPDATER_DISABLED true --raw --path=${DDEV_DOCROOT}
+
+echo "Fresh wordpress installed: "
+echo ${DDEV_PRIMARY_URL}/wp-admin/
+
+# TODO: test on windows (use start)
+open ${DDEV_PRIMARY_URL}
+
+#TODO: use this from launch?
+#case $OSTYPE in
+#  linux-gnu)
+#    xdg-open ${FULLURL}
+#    ;;
+#  "darwin"*)
+#    open ${FULLURL}
+#    ;;
+#  "win*"* | "msys"*)
+#    start ${FULLURL}
+#    ;;
+#esac

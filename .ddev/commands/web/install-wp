@@ -1,0 +1,43 @@
+#!/bin/bash
+
+## Description: Install fresh wordpress with updraftplus
+## Usage: install-wp
+## Example: "ddev install-wp <de_DE>"
+
+if [ -z "$1" ]
+  then
+    # if no locale is provided, ask user if he/she really wants to use en_US
+    WP_LOCALE_DEFAULT="en_US"
+    read -p "Okay to use locale en_US? [$WP_LOCALE_DEFAULT]: " WP_LOCALE_INPUT
+    WP_LOCALE="${WP_LOCALE_INPUT:-$WP_LOCALE_DEFAULT}"
+  else
+    # if user provided a locale, just set it
+    WP_LOCALE="${1}"
+fi
+
+echo "Installing fresh wordpress with ${WP_LOCALE}"
+mkdir -p /var/www/html/wordpress
+cd /var/www/html/wordpress
+wp core download --locale=${WP_LOCALE} --path=${DDEV_DOCROOT}
+wp config create --dbname=db --dbuser=db --dbpass=db --dbhost=db --path=${DDEV_DOCROOT}
+wp core install --url=${DDEV_PRIMARY_URL} --title=FreshPlainWordpress --admin_user=admin --admin_email=admin@pullwp.nohost --path=${DDEV_DOCROOT}
+
+# disable automatic updates for the local instance
+wp config set AUTOMATIC_UPDATER_DISABLED true --raw --path=${DDEV_DOCROOT}
+
+# set debug values for local development
+wp config set WP_DEBUG true --raw --path=${DDEV_DOCROOT}
+wp config set WP_DEBUG_LOG true --raw --path=${DDEV_DOCROOT}
+wp config set WP_DEBUG_DISPLAY false --raw --path=${DDEV_DOCROOT}
+
+# TODO: Cache it to avoid unnecessary data transfer?
+echo "Downloading updraftplus plugin as zip (needed for premium addons)..."
+wget https://updraftplus.com/wp-content/uploads/updraftplus.zip
+echo "Installing and activating it..."
+wp plugin install updraftplus.zip --activate
+rm updraftplus.zip
+
+wp user update admin --prompt=user_pass --path=${DDEV_DOCROOT}
+
+echo "Fresh wordpress with updraftplus installed at ${DDEV_PRIMARY_URL}, use ddev launch to open it."
+echo "Next step: Activate your CLI and Migrator plugin here:  ${DDEV_PRIMARY_URL}/wp-admin/options-general.php?page=updraftplus"
