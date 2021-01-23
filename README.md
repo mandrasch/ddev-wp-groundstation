@@ -23,19 +23,17 @@ Scared wordpress updates will break your wordpress site? Not anymore. Use the op
     ddev install-wp
     ```
 
-    If you need a specific language version, use: `ddev install-wp de_DE`. This will be prompted as well.
-
-    This command will automatically install wordpress and activate the .zip file need to activate updraftplus for addons (See: https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/). 
-
-    At the end of the installation, you will be prompted for an admin password.
+    (This command will automatically install wordpress and activate the .zip file need to activate updraftplus for addons (See: https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/). At the end of the installation, you will be prompted for an admin password.)
+    
+    [Use `ddev launch` to open the local site directly in browser]
 
 3. **Login into local wordpress**
 
-    Login to https://pull-wp.ddev.site/wp-admin/ with user "admin". You can use `ddev launch` to open your ddev site in your browser.
+    Login to https://pull-wp.ddev.site/wp-admin/ with user "admin" and your chosen password.
 
 4. **Activate updraftplus CLI and Migrator add-on ($)** 
 
-    Activate paid license for updraftplus CLI and Migrator / premium in updratfplus dashboard with updraftplus account:
+    Activate paid license for updraftplus CLI and Migrator / premium in updraftplus dashboard with updraftplus account:
 
     https://pull-wp.ddev.site/wp-admin/options-general.php?page=updraftplus
 
@@ -47,37 +45,37 @@ Scared wordpress updates will break your wordpress site? Not anymore. Use the op
 
 ## Pull a remote site
 
-1. **Install updraftplus free on remote wordpress site**
+1. **Install updraftplus (free) on remote wordpress site**
 
-    On the remote install updraftplus free, it's best to use .zip file as well from here: https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/
+    On the remote install updraftplus free, it's best to use .zip file as well from here: https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/ - but you don't have to activate/connect anything.
 
 2. **Create backup on remote site**
 
     Just create a backup with "backup now" and standard settings.
 
-3. **Pull remote site backup and restore(migrate) it with a single command**
-
-    *Beware: This will delete all current changes made to wordpress in your local instance.*
-
+3. **Pull remote site backup and restore(migrate) it**
+  
     ```shell
     ddev pull-wp sshusername@host.xyz /html/wordpress
     ```
-
-    This commands remote site backup via SSH and rsync to local DDEV, restore it with help of updraftplus Migrator and CLI. You need to provide ssh information and path to wordpress installation on remote server.
+    
+    This command connects to the remote live website via SSH, rsync's the backup files to local DDEV, restores it with help of updraftplus Migrator and CLI. You need to provide SSH information and path to wordpress installation on remote server.
 
 4. **Open and test updates locally**
 
-    https://pull-wp.ddev.site
+    Open `https://pull-wp.ddev.site`
     
-    The login credentials are now the values from the live website.
- 
-    A good practice could be to use tools like Disable Emails, WP Debug Bar, etc.
+    The login credentials are now the values from the live website. You can now test an update in peace and without breaking the live website.
+     
+    [A good practice could be to use tools like Disable Emails, WP Debug Bar, etc.]
 
 5. **Run updates on live website**
 
+    If the update works locally, you could just do the same on your live website. 
+
 ## Reset
 
-    <Work in progress>
+    <This part is work in progress>
     
 1. **Reactivate CLI and Migrator addon on local DDEV**
     
