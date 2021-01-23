@@ -45,7 +45,7 @@ Activate paid license for updraftplus CLI and Migrator / premium in updratfplus 
 
 https://pull-wp.ddev.site/wp-admin/options-general.php?page=updraftplus
 
-![Screenshot updraftplus dashboard - add credentials in Connect with updraftplus account](screenshot_updraftplus_connected.png)
+![Screenshot updraftplus dashboard - add credentials in Connect with updraftplus account](screenshot_updraftplus_connect.png)
 
 ![Screenshot updraftplus dashboard - CLI and Migrator addon successful activated](screenshot_updraftplus_activated.png)
 
