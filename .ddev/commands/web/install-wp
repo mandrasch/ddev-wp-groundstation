@@ -17,6 +17,8 @@ fi
 
 # We use a subdirectory in DDEV container, see "docroot" in .ddev/config.yaml
 mkdir -p /var/www/html/wordpress
+
+# Working directory
 cd /var/www/html/wordpress
 
 echo "Installing fresh wordpress with ${WP_LOCALE} ..."
@@ -41,5 +43,7 @@ rm updraftplus.zip
 
 wp user update admin --prompt=user_pass
 
-echo "Fresh wordpress with updraftplus installed at ${DDEV_PRIMARY_URL}, use ddev launch to open it."
-echo "Next step: Activate your CLI and Migrator plugin here:  ${DDEV_PRIMARY_URL}/wp-admin/options-general.php?page=updraftplus"
+echo "Fresh wordpress with updraftplus installed at ${DDEV_PRIMARY_URL} - nice!"
+echo "Next step: Activate your CLI and Migrator plugin here:"
+echo "${DDEV_PRIMARY_URL}/wp-admin/options-general.php?page=updraftplus"
+echo "You can launch your website with ddev launch from commandline"

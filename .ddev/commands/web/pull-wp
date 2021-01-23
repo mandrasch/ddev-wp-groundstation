@@ -30,7 +30,8 @@ wp updraftplus existing_backups >/dev/null
 if [ $? -eq 0 ]; then
     echo "Updraftplus CLI is active..."
 else
-    echo "Please activate updraftplus CLI addon in WP Dashboard."
+    echo "Please activate updraftplus CLI and Migrator addon in WP Dashboard."
+    echo "(Updraftplus configuration is overwritten by restore process)"
     exit 1
 fi
 

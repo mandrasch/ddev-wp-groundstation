@@ -6,14 +6,13 @@
 
 # TODO: use same dialog as ddev delete, it's nicer
 
-read -p "Are you sure to delete /wordpress/ directory? This can not be undone. [Type y if sure, n to abort]" -n 1 -r
+read -p "Are you sure to delete database and /wordpress/ directory? This can not be undone. [Type y if sure, n to abort]" -n 1 -r
 echo    # (optional) move to a new line
 if [[ ! $REPLY =~ ^[Yy]$ ]]
 then
     exit 1
 fi
 
-# We use ddev exec here because its a host command
-echo "Deleting /var/www/html/wordpress..."
-ddev exec rm -rf /var/www/html/wordpress
-ddev delete -O
+# We use ddev exec here because its a host command, --path is needed as well for WP CLI
+echo "Deleting database via WP CLI and deleting wordpress folder ..."
+ddev exec "wp db clean --yes --path=${DDEV_DOCROOT} && rm -rf /var/www/html/wordpress/"
