@@ -47,7 +47,7 @@ Scared wordpress updates will break your wordpress site? Not anymore. Use the op
 
 1. **Install updraftplus (free) on remote wordpress site**
 
-    On the remote install updraftplus free, it's best to use .zip file as well from here: https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/ - but you don't have to activate/connect anything.
+    On the remote site it's best to use the updraftplus .zip file as well from here: https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/ - but you don't have to activate/connect anything. Free version is enough.
 
 2. **Create backup on remote site**
 
