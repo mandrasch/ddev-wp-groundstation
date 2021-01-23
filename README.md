@@ -79,6 +79,10 @@ Scared wordpress updates will break your wordpress site? Not anymore. Use the op
 
 5. **Run updates on live website**
 
+## Reset
+
+    If you want to start over, use: <TODO>
+
 ## Advanced
 
 ### Local PHP/MySQL version
