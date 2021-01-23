@@ -97,10 +97,13 @@ Scared wordpress updates will break your wordpress site? Not anymore. Use the op
     # delete ddev database and project, -O without DB snapshot
     ddev delete -O
     # delete all files which are not tracked in git (ddev config will be kept)
+    # caution - also delete ignored files
     git clean -fdx
     ```
     
     If you have git directories restored, delete wordpress/-folder manually.
+
+    If you made changes to ddev, which you want to delete: `git reset --hard`
   
 ## Advanced
 
