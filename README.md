@@ -11,7 +11,7 @@ Scared wordpress updates will break your wordpress site? Not anymore. Use the op
 - DDEV installed on local machine
 - License for updraftplus CLI and updraftplus Migrator (for local DDEV)
 - SSH and rsync on remote server/webspace (not all webspaces support this)
-- [Remote sites only need the free version of updraftplus plugin]
+- [Remote sites only need the free version of updraftplus plugin, but it is better to install it via .zip as well from https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/]
 
 ## Install
 
@@ -49,7 +49,7 @@ Scared wordpress updates will break your wordpress site? Not anymore. Use the op
 
 1. **Install updraftplus free on remote wordpress site**
 
-    On the remote site the .zip version of updraft is not needed, just install the free plugin via https://wordpress.org/plugins/updraftplus/. 
+    On the remote install updraftplus free, it's best to use .zip file as well from here: https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/
 
 2. **Create backup on remote site**
 
