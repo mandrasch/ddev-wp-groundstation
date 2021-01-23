@@ -1,17 +1,17 @@
-# ddev-pull-wp
+# DDEV pull-wp
 
-⚠️ Status: Preview / ddev pull-wp not implemented yet completely! ⚠️
+⚠️ Status: Experimental, use at own risk 👷‍♀️⚠️
 
 ## Description
 
-Scared wordpress updates will break your wordpress site? Not anymore. Use the open source tool DDEV with updraftplus addons and test updates beforehand in a local dev enviroment without breaking anything on the live website. This repository contains a preconfigured DDEV with custom commands.
+Scared wordpress updates will break your wordpress site? Not anymore. Use the open source tool DDEV with updraftplus addons, test updates beforehand in a local dev enviroment - without breaking anything on the live website. This repository contains a preconfigured DDEV with custom commands.
 
 ## Prerequisites
 
 - DDEV installed on local machine
-- license for updraftplus CLI and updraftplus Migrator
+- License for updraftplus CLI and updraftplus Migrator (for local DDEV)
 - SSH and rsync on remote server/webspace (not all webspaces support this)
-- remote sites only need the free version of updraftplus
+- [Remote sites only need the free version of updraftplus plugin]
 
 ## Install
 
@@ -27,7 +27,7 @@ Scared wordpress updates will break your wordpress site? Not anymore. Use the op
 
     This command will automatically install wordpress and activate the .zip file need to activate updraftplus for addons (See: https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/). 
 
-    At the end of the installation, you can set a your admin password.
+    At the end of the installation, you will be prompted for an admin password.
 
 3. **Login into local wordpress**
 
@@ -89,21 +89,31 @@ Scared wordpress updates will break your wordpress site? Not anymore. Use the op
     ddev delete-backups
     ```
     
-3. **Start with pull again**
+3. **Start with ddev pull-wp again**
 
 ## Full/hard reset
-
+  
+    Drop database datables and remove wordpress/-directory:
     ```shell
-    # delete ddev database and project, -O without DB snapshot
-    ddev delete -O
-    # delete all files which are not tracked in git (ddev config will be kept)
-    # caution - also delete ignored files
+    ddev delete-wp
+    ```
+    If you need to remove other non-tracked files:
+    (Caution: also deletes ignored files + symlinked-/ folders)
+    
+    ```shell
     git clean -fdx
     ```
+    Delete complete DDEV containers:
     
-    If you have git directories restored, delete wordpress/-folder manually.
-
-    If you made changes to ddev, which you want to delete: `git reset --hard`
+    ```shell
+    ddev delete -O
+    ```
+    
+    If you made changes to DDEV files from this git repo, which you want to delete: 
+    
+    ```
+    git reset --hard`
+    ```
   
 ## Advanced
 
@@ -138,3 +148,7 @@ ddev setup-symlink theme mychild-theme
 ```
 
 See ".ddev/commands/web/setup-symlink" for details.
+
+## Challenges
+
+1. Updraftplus configuration is overwritten on restore, activated CLI and Migrator plugin need to be activated again (this is kind of annoying if you want to pull the next website)
