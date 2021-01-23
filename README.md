@@ -51,27 +51,31 @@ Scared wordpress updates will break your wordpress site? Not anymore. Use the op
 
 2. **Create backup on remote site**
 
-    Just create a backup with "backup now" and standard settings.
+    ![Screenshot updraftplus dashboard - Backup screen](screenshot_updraftplus_backup_now.png)
+  
+    Just create a backup with "Backup now" in the Wordpress Dashboard of your live website.
 
 3. **Pull remote site backup and restore(migrate) it**
+
+    Now we can pull the backup from the live website to our local site. The ssh username and host is needed as well as the path where wordpress is installed on the remote webspace.
   
     ```shell
     ddev pull-wp sshusername@host.xyz /html/wordpress
     ```
     
-    This command connects to the remote live website via SSH, rsync's the backup files to local DDEV, restores it with help of updraftplus Migrator and CLI. You need to provide SSH information and path to wordpress installation on remote server.
+    (This command connects to the remote live website via SSH, rsync's the backup files to local DDEV, restores it with help of updraftplus Migrator and CLI. You need to provide SSH information and path to wordpress installation on remote server.)
 
 4. **Open and test updates locally**
 
-    Open `https://pull-wp.ddev.site`
+    Open `https://pull-wp.ddev.site` to see the migrated site which now runs on your local machine.
     
-    The login credentials are now the values from the live website. You can now test an update in peace and without breaking the live website.
+    The local login credentials are replaced by the credentials of the live website. You can now test a bigger wordpress update in peace, without breaking the live website.
      
     [A good practice could be to use tools like Disable Emails, WP Debug Bar, etc.]
 
 5. **Run updates on live website**
 
-    If the update works locally, you could just do the same on your live website. 
+    If the update works locally, you can just run updates on your live site as well. 
 
 ## Reset
 
