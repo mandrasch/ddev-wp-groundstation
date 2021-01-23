@@ -3,11 +3,15 @@
 ## Description: Migrate a remote website to a local DDEV
 ## Usage: pull-wp
 ## Example: "pull-wp sshuser@host.xyz /html/wordpress"
-## (No trailing slash!)
+## (Remote path - no trailing slash!)
+
+# We use a subdirectory, see "docroot" in .ddev/config.yaml
+# TODO: $DDEV_DOCROOT is empty?
+cd /var/www/html/wordpress/
 
 if [ -z "$1" ]
   then
-    echo "Please provide sshuser@sshost.xyz information. :-)"
+    echo "Please provide ssh connection information (e.g. ddev pull-wp sshuser@sshost.xyz /html/wordpress) :-)"
     exit 1
   else
     SSH_USER_HOST="${1}"
@@ -15,43 +19,60 @@ fi
 
 if [ -z "$2" ]
   then
-    echo "Please provide path to remote wordpress information. :-)"
+    echo "Please provide the path to wordpress on remote machine (e.g. ddev pull-wp sshuser@sshost.xyz /html/wordpress) :-)"
     exit 1
   else
     SSH_WORDPRESS_PATH="${2}"
 fi
 
-if [ -d '/var/www/html/wordpress/wp-admin/' ]
-then 
-  echo "Wordpress installation found, please clean/reset it before a new installation with ddev delete-wp"
-  exit 2;
+# check if updraftplus CLI is actived on local instance
+wp updraftplus existing_backups >/dev/null
+if [ $? -eq 0 ]; then
+    echo "Updraftplus CLI is active..."
+else
+    echo "Please activate updraftplus CLI addon in WP Dashboard."
+    exit 1
 fi
+
+# TODO: check migrator as well?
 
 # get remote wordpress version, save it as var
 WP_CORE_VERSION_LIVE_WEBSITE=`ssh ${SSH_USER_HOST} wp core version --path=${SSH_WORDPRESS_PATH}`
 echo "Live website has version: ${WP_CORE_VERSION_LIVE_WEBSITE}"
 
-# downgrade current ddev site to that wp version
-wp core update --version=${WP_CORE_VERSION_LIVE_WEBSITE} --force --path=${DDEV_DOCROOT}
-# TODO: more commands needed?
+# TODO: delete older backups maybe transferred from other sites?
+# TODO: Prompt user if this okay?
 
-# TODO: Implement this!
-exit 1;
-
-# rsync updraft backup to local temp folder
-mkdir -p /tmp/updraft
-echo "Sync backup files from remote server to local server"
+echo "Sync backup files from remote server to local DDEV..."
+echo "(SSH password is needed again unfortunately)"
 # TODO: only the newest, only with a specific nonce in it?
-rsync -avzh ${SSH_USER_HOST}:${SSH_WORDPRESS_PATH}/wp-content/updraft/ /tmp/updraft/
+# see https://rsync.snipline.io/ for details
+# updraft keeps themes-old/, we don't need to sync it
+rsync --archive --human-readable --rsh ssh --progress --include="*.zip" --include="*.gz" --exclude="*" ${SSH_USER_HOST}:${SSH_WORDPRESS_PATH}/wp-content/updraft/ wp-content/updraft/
+#rsync -avzh ${SSH_USER_HOST}:${SSH_WORDPRESS_PATH}/wp-content/updraft/ wp-content/updraft/
 
-# TODO: use WP CLI and Migrator:
+# downgrade current ddev site to that wp version (updraftplus does not backup core files in free version, MoreFiles addon needed)
+# TODO: if core version is the same, don't change it
+echo "We downgrade the local environment to match the remote site run a realistic test..."
+wp core update --version=${WP_CORE_VERSION_LIVE_WEBSITE} --force
 
-# get latest nonce? via wp updraftplus get_latest_full_backup ? 
-UPDRAFT_NONCE=`wp updraftplus get_latest_full_backup --path=${DDEV_DOCROOT}`
-echo "Got nonce from updraft: ${WP_CORE_VERSION_LIVE_WEBSITE}"
+echo "Restoring latest backup we received from remote machine ..."
+echo "Rescan updraftplus storage..."
+# rescan storage
+wp updraftplus rescan_storage local
 
-# run restore process
-echo "Start restore with --migration flag turned on..."
-wp updraftplus restore ${UPDRAFT_NONCE} --migration --path=${DDEV_DOCROOT}
+# Updraft does output a full string instead of just the identifier
+# Output will be something like: Success: Latest full backup found identifier: a7cfeXXXXc281
+UPDRAFT_TERMINAL_OUTPUT=`wp updraftplus get_latest_full_backup`
+# we strip identifier after last : character
+UPDRAFT_NONCE=${UPDRAFT_TERMINAL_OUTPUT##*: }
 
-echo "Restore ended, have fun!
+# Restore this site, important: --migration=true
+# You could also set --delete-during-restore=true, but right now I leave it deactivated
+echo "Restoring backup with nonce/identifier ${UPDRAFT_NONCE} and --migration=true..."
+wp updraftplus restore $UPDRAFT_NONCE --migration=true 
+
+echo "Delete -old/-directories created by updraftplus"
+find . -type d -name '*-old' -exec rm -r {} +
+
+echo "Restore ended, have fun!"

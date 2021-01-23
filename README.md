@@ -9,21 +9,15 @@ Scared wordpress updates will break your wordpress site? Not anymore. Use the op
 ## Prerequisites
 
 - DDEV installed on local machine
+- license for updraftplus CLI and updraftplus Migrator
 - SSH and rsync on remote server/webspace (not all webspaces support this)
+- remote sites only need the free version of updraftplus
 
 ## Install
 
-1. **Clone this repository**
+1. **Clone this repository, open folder in terminal**
 
-2. **Open terminal**
-
-    Change the current directory to the cloned repository:
-
-    ```shell
-    cd ddev-pull-wp
-    ```
-
-3. **Install fresh wordpress locally**
+2. **Install fresh wordpress locally**
 
     ```shell
     ddev install-wp
@@ -35,11 +29,11 @@ Scared wordpress updates will break your wordpress site? Not anymore. Use the op
 
     At the end of the installation, you can set a your admin password.
 
-4. **Login into local wordpress**
+3. **Login into local wordpress**
 
     Login to https://pull-wp.ddev.site/wp-admin/ with user "admin". You can use `ddev launch` to open your ddev site in your browser.
 
-4. **Activiate updraftplus CLI and Migrator add-on ($)** 
+4. **Activate updraftplus CLI and Migrator add-on ($)** 
 
     Activate paid license for updraftplus CLI and Migrator / premium in updratfplus dashboard with updraftplus account:
 
@@ -55,34 +49,57 @@ Scared wordpress updates will break your wordpress site? Not anymore. Use the op
 
 1. **Install updraftplus free on remote wordpress site**
 
-    On the remote site the .zip is not needed, just install it the standard way from https://wordpress.org/plugins/updraftplus/. 
+    On the remote site the .zip version of updraft is not needed, just install the free plugin via https://wordpress.org/plugins/updraftplus/. 
 
-2. **Create backup for remote site**
+2. **Create backup on remote site**
 
     Just create a backup with "backup now" and standard settings.
 
-3. **Pull remote site backup and migrate it with a single command**
+3. **Pull remote site backup and restore(migrate) it with a single command**
 
-    Beware: This will delete all current changes made to wordpress in your local instance.
+    *Beware: This will delete all current changes made to wordpress in your local instance.*
 
     ```shell
     ddev pull-wp sshusername@host.xyz /html/wordpress
     ```
 
-    Pulls remote site backup via SSH and rsync to local DDEV, restore it with help of updraftplus Migrator and CLI. You need to provide ssh information and path to wordpress installation on remote server.
+    This commands remote site backup via SSH and rsync to local DDEV, restore it with help of updraftplus Migrator and CLI. You need to provide ssh information and path to wordpress installation on remote server.
 
 4. **Open and test updates locally**
 
     https://pull-wp.ddev.site
+    
+    The login credentials are now the values from the live website.
  
-    A good practice could be to use tools like Disable Emails, WP Debug Bar and enabling  your WP_DEBUG and WP_DEBUG_LOG to check if updates break something.
+    A good practice could be to use tools like Disable Emails, WP Debug Bar, etc.
 
 5. **Run updates on live website**
 
 ## Reset
 
-    If you want to start over, use: <TODO>
+    <Work in progress>
+    
+1. **Reactivate CLI and Migrator addon on local DDEV**
+    
+    After a restore process you need to activate the updraftplus CLI again in WP dashboard unfortunately. Otherwise you'll get "Error: 'updraftplus' is not a registered wp command". It is helpful to have connected your live website with your updraft credentials as well, otherwise you'll need to re-enter them & activate the addons again. (TODO: Is there a workaround for this?)
 
+2. **Delete transferred backups**
+
+    ```shell
+    ddev delete-backups
+    ```
+    
+3. **Start with pull again**
+
+## Full/hard reset
+
+    ```shell
+    # delete ddev database and project, -O without DB snapshot
+    ddev delete -O
+    # delete all files which are not tracked in git (ddev config will be kept)
+    git clean -fdx
+    ```
+  
 ## Advanced
 
 ### Local PHP/MySQL version

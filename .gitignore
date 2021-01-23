@@ -11,7 +11,7 @@
 /.ddev/commands/web/*
 !/.ddev/commands/web/pull-wp
 !/.ddev/commands/web/install-wp
-!/.ddev/commands/web/reset-wp
+!/.ddev/commands/web/delete-backups
 !/.ddev/commands/web/setup-symlink
 
 # Ignore wordpress

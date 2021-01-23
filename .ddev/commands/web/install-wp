@@ -15,20 +15,22 @@ if [ -z "$1" ]
     WP_LOCALE="${1}"
 fi
 
-echo "Installing fresh wordpress with ${WP_LOCALE}"
+# We use a subdirectory in DDEV container, see "docroot" in .ddev/config.yaml
 mkdir -p /var/www/html/wordpress
 cd /var/www/html/wordpress
-wp core download --locale=${WP_LOCALE} --path=${DDEV_DOCROOT}
-wp config create --dbname=db --dbuser=db --dbpass=db --dbhost=db --path=${DDEV_DOCROOT}
-wp core install --url=${DDEV_PRIMARY_URL} --title=FreshPlainWordpress --admin_user=admin --admin_email=admin@pullwp.nohost --path=${DDEV_DOCROOT}
+
+echo "Installing fresh wordpress with ${WP_LOCALE} ..."
+wp core download --locale=${WP_LOCALE}
+wp config create --dbname=db --dbuser=db --dbpass=db --dbhost=db
+wp core install --url=${DDEV_PRIMARY_URL} --title=FreshPlainWordpress --admin_user=admin --admin_email=admin@pullwp.nohost
 
 # disable automatic updates for the local instance
-wp config set AUTOMATIC_UPDATER_DISABLED true --raw --path=${DDEV_DOCROOT}
+wp config set AUTOMATIC_UPDATER_DISABLED true --raw
 
 # set debug values for local development
-wp config set WP_DEBUG true --raw --path=${DDEV_DOCROOT}
-wp config set WP_DEBUG_LOG true --raw --path=${DDEV_DOCROOT}
-wp config set WP_DEBUG_DISPLAY false --raw --path=${DDEV_DOCROOT}
+wp config set WP_DEBUG true --raw
+wp config set WP_DEBUG_LOG true --raw
+wp config set WP_DEBUG_DISPLAY false --raw
 
 # TODO: Cache it to avoid unnecessary data transfer?
 echo "Downloading updraftplus plugin as zip (needed for premium addons)..."
@@ -37,7 +39,7 @@ echo "Installing and activating it..."
 wp plugin install updraftplus.zip --activate
 rm updraftplus.zip
 
-wp user update admin --prompt=user_pass --path=${DDEV_DOCROOT}
+wp user update admin --prompt=user_pass
 
 echo "Fresh wordpress with updraftplus installed at ${DDEV_PRIMARY_URL}, use ddev launch to open it."
 echo "Next step: Activate your CLI and Migrator plugin here:  ${DDEV_PRIMARY_URL}/wp-admin/options-general.php?page=updraftplus"

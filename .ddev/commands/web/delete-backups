@@ -1,0 +1,29 @@
+#!/bin/bash
+
+## Description: Delete updraft backups on local instance
+## Usage: delete-backups
+## Example: "ddev delete-backups"
+
+UPDRAFT_FOLDER="/var/www/html/wordpress/wp-content/updraft"
+
+if [ ! -d $UPDRAFT_FOLDER ]
+then 
+  echo "Updraft folder not found, aborting."
+  exit 2;
+fi
+
+shopt -s extglob
+
+cd "$UPDRAFT_FOLDER"
+if [ $? -eq 0 ]
+then  
+    # TODO: use DOCROOT var from DDEV? (is empty?)
+    # https://www.tecmint.com/delete-all-files-in-directory-except-one-few-file-extensions/
+    rm -v !(*.htaccess|*.html)
+    echo "Delete all files (except .htaccess/index.html in ${UPDRAFT_FOLDER})"
+else
+    echo "Could not change dir to updraft folder, aborting."
+    exit 1
+fi
+
+
