@@ -7,8 +7,7 @@ Scared a wordpress updates will break your old site? Want to play around with yo
 ## Prerequisites
 
 - [DDEV](https://www.ddev.com/ddev-local/) installed on your local machine
-- [updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/) license <br>
-  (or [updraftplus CLI](https://updraftplus.com/shop/wp-cli/) and [updraftplus Migrator](https://updraftplus.com/migrator/) license)
+- [updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/) license <br> (or [updraftplus CLI](https://updraftplus.com/shop/wp-cli/) and [updraftplus Migrator](https://updraftplus.com/migrator/) license)
 - SSH and rsync on remote server/webspace (live website)
 
 ## Install / Setup
