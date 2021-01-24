@@ -47,5 +47,5 @@ wp user update admin --prompt=user_pass
 echo "Fresh wordpress with updraftplus installed at ${DDEV_PRIMARY_URL} - nice!"
 echo "Next step: Activate your updraftplus premium license / CLI and Migrator plugin here:"
 echo "${DDEV_PRIMARY_URL}/wp-admin/options-general.php?page=updraftplus"
-echo "[You can launch your website with ddev launch from commandline]"
-echo "Do not forget to run 'ddev create-local-backup' after updraftplus activation."
+echo "[You can always open your website with 'ddev launch' from commandline]"
+echo "! ### Do not forget to run 'ddev create-local-backup' after updraftplus activation ### !"

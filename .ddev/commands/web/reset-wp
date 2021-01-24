@@ -19,6 +19,7 @@ then
     find . -type d -name '*-old' -exec rm -r {} +
 
     echo "Reset to fresh installation complete."
+    echo "[You can always open your website with 'ddev launch' from commandline]"
 else
     echo "No nonce/restore point found, aborting."
 fi

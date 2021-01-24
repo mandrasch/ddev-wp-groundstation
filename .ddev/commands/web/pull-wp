@@ -141,5 +141,5 @@ wp updraftplus restore $UPDRAFT_NONCE --migration=true
 echo "Delete -old/-directories created by updraftplus"
 find . -type d -name '*-old' -exec rm -r {} +
 
-echo "pull-wp ended, have fun testing locally!"
-echo "(And please check if you can participate in fighting the climate emergency on our planet :))"
+echo "pull-wp ended, have fun testing locally! (and fight the climate emergency :))"
+echo "[You can always open your website with 'ddev launch' from commandline]"

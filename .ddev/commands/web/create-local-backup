@@ -16,4 +16,4 @@ echo "Saving this nonce/identifier in local file for later ..."
 echo 'FRESH_INSTALL_NONCE="'"$UPDRAFT_NONCE"'"' > ../fresh_install_nonce.txt
 # this can be used later with source command
 
-echo "All good, move on. :)"
+echo "All good, move on with ddev pull-wp. :)"
