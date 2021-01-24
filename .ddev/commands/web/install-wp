@@ -30,9 +30,10 @@ wp core install --url=${DDEV_PRIMARY_URL} --title=FreshPlainWordpress --admin_us
 wp config set AUTOMATIC_UPDATER_DISABLED true --raw
 
 # set debug values for local development
-wp config set WP_DEBUG true --raw
-wp config set WP_DEBUG_LOG true --raw
-wp config set WP_DEBUG_DISPLAY false --raw
+# TODO: figure out if this slows down the restore process?
+# wp config set WP_DEBUG true --raw
+# wp config set WP_DEBUG_LOG true --raw
+# wp config set WP_DEBUG_DISPLAY false --raw
 
 # TODO: Cache it to avoid unnecessary data transfer?
 echo "Downloading updraftplus plugin as zip (needed for premium addons)..."

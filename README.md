@@ -8,10 +8,25 @@ Scared wordpress updates will break your wordpress site? Not anymore. Use the op
 
 ## Prerequisites
 
-- DDEV installed on local machine
-- License for updraftplus CLI and updraftplus Migrator (for local DDEV)
-- SSH and rsync on remote server/webspace (not all webspaces support this)
-- [Remote sites only need the free version of updraftplus plugin, but it is better to install it via .zip as well from https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/]
+- [DDEV](https://www.ddev.com/ddev-local/) installed on your local machine
+- License for addons: [updraftplus CLI](https://updraftplus.com/shop/wp-cli/) and [updraftplus Migrator](https://updraftplus.com/migrator/)
+  (These are also included in [updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/))
+- SSH and rsync on remote server/webspace 
+  (Not all webspaces support this)
+
+## Usage scenarios
+
+1. 🤖 CLI <-> free 
+    
+    Local DDEV with updraftplus Premium (or Migrator+CLI-addon license) <----> Wordpress live site (free version updraftplus)
+    
+    *Remote sites only need the free version of updraftplus plugin, but it is better for this workflow to install it via .zip as well from https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/, not from wordpress plugin directory*
+
+2. 🤖 CLI <-> CLI 🤖 
+    
+    Local DDEV with updraftplus Premium (or Migrator+CLI-addon license) <----> Wordpress live site (updraftlus premium or Migrator+CLI addon)
+    
+    In CLI<->CLI (commandline-to-commandline) mode you can also create backups on remote site from your local machine, no need to visit the WP dashboard of your remote site. You can also get the <nonce>-identifier for the latest backup, which saves time.
 
 ## Install / Setup
 
@@ -72,6 +87,15 @@ Scared wordpress updates will break your wordpress site? Not anymore. Use the op
     The local login credentials are replaced by the credentials of the live website. You can now test a bigger wordpress update in peace, without breaking the live website.
      
     [A good practice could be to use tools like Disable Emails, WP Debug Bar, etc.]
+    
+    Activate debug log and install plugin Debug bar e.g.:
+    
+    ```shell
+    ddev exec wp config set WP_DEBUG true --raw --path=wordpress
+    ddev exec wp config set WP_DEBUG_LOG true --raw --path=wordpress
+    ddev exec wp config set WP_DEBUG_DISPLAY false --raw --path=wordpress
+    ddev exec wp plugin install debug-bar --activate --path=wordpress
+    ```
 
 5. **Run updates on live website**
 
@@ -96,6 +120,7 @@ Scared wordpress updates will break your wordpress site? Not anymore. Use the op
 ## Full/hard reset
   
     Drop database datables and remove wordpress/-directory:
+    
     ```shell
     ddev delete-wp
     ```
