@@ -105,6 +105,8 @@ fi
 
 # get remote wordpress version, save it as var
 # updraftplus free / standard version does not backup wpcore files
+echo "Getting the wpcore version information from remote site ..."
+echo "Please provide the SSH password (use SSH keys to avoid this prompt):"
 WP_CORE_VERSION_LIVE_WEBSITE=`ssh ${SSH_USER_HOST} wp core version --path=${SSH_WORDPRESS_PATH}`
 echo "Live website has version: ${WP_CORE_VERSION_LIVE_WEBSITE}"
 
