@@ -147,15 +147,15 @@ See .ddev/config.yaml to change the local docker enviroment to be similiar to yo
 
 ### Working with git?
 
-    If you have a theme checked out with git on remote website, this will be transferred to the local enviroment. Updraftplus does not delete .git-folders while migration (which is nice).
+If you have a theme checked out with git on remote website, this will be transferred to the local enviroment. Updraftplus does not delete .git-folders while migration (which is nice).
 
 ### Forgot password?
 
-    Run following command:
+Run following command:
 
-    ```shell
-    ddev exec wp user update admin --prompt=user_pass --path=wordpress/
-    ```
+```shell
+ddev exec wp user update admin --prompt=user_pass --path=wordpress/
+```
 
 ### Symlink plugin/themes in fresh wp
 
@@ -175,25 +175,25 @@ See .ddev/config.yaml to change the local docker enviroment to be similiar to yo
 
 ### Full/hard reset
   
-    Drop database datables and remove wordpress/-directory:
-    
-    ```shell
-    ddev delete-wp
-    ```
-    If you need to remove other non-tracked files:
-    (Caution: also deletes ignored files + symlinked-/ folders)
-    
-    ```shell
-    git clean -fdx
-    ```
-    Delete complete DDEV containers:
-    
-    ```shell
-    ddev delete -O
-    ```
-    
-    If you made changes to DDEV files from this git repo, which you want to delete: 
-    
-    ```
-    git reset --hard`
-    ```
+Drop database datables and remove wordpress/-directory:
+
+```shell
+ddev delete-wp
+```
+If you need to remove other non-tracked files:
+(Caution: also deletes ignored files + symlinked-/ folders)
+
+```shell
+git clean -fdx
+```
+Delete complete DDEV containers:
+
+```shell
+ddev delete -O
+```
+
+If you made changes to DDEV files from this git repo, which you want to delete: 
+
+```
+git reset --hard`
+```
