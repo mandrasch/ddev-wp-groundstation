@@ -12,10 +12,14 @@
 !/.ddev/commands/web/pull-wp
 !/.ddev/commands/web/install-wp
 !/.ddev/commands/web/delete-backups
+!/.ddev/commands/web/reset-wp
 !/.ddev/commands/web/setup-symlink
 
 # Ignore wordpress
 /wordpress/*
+
+# Ignore nonce file from install
+fresh_install_nonce.txt
 
 # Ignore content of symlinked themes (these are controlled by separate sub-git)
 /symlinked-themes/*

@@ -7,8 +7,8 @@ Scared a wordpress updates will break your old site? Want to play around with yo
 ## Prerequisites
 
 - [DDEV](https://www.ddev.com/ddev-local/) installed on your local machine
-- local DDEV: [updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/) license <br> (or [updraftplus CLI](https://updraftplus.com/shop/wp-cli/) and [updraftplus Migrator](https://updraftplus.com/migrator/) single license)
-- remote site: free or premium version of updraftplus (see [Usage scenarios](#usage-scenarios))
+- local site: [updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/) license <br> (or [updraftplus CLI](https://updraftplus.com/shop/wp-cli/) and [updraftplus Migrator](https://updraftplus.com/migrator/) single license)
+- remote/live site: free or premium version of updraftplus (see [Usage scenarios](#usage-scenarios))
 - SSH and rsync on remote server/webspace (live website)
 
 ## Install / Setup
@@ -29,7 +29,7 @@ Scared a wordpress updates will break your old site? Want to play around with yo
     
     [Use `ddev launch` to open the local site directly in browser]
 
-4. **Activate updraftplus CLI and Migrator add-on ($)** 
+4. **Activate updraftplus premium / CLI and Migrator add-on ($)** 
 
     Activate paid license for updraftplus CLI and Migrator / premium in updraftplus dashboard with updraftplus account:
 
@@ -37,9 +37,13 @@ Scared a wordpress updates will break your old site? Want to play around with yo
 
     ![Screenshot updraftplus dashboard - add credentials in Connect with updraftplus account](screenshot_updraftplus_connect.png)
 
-    ![Screenshot updraftplus dashboard - CLI and Migrator addon successful activated](screenshot_updraftplus_activated.png)
+    TODO: Screenshot with updraftplus premium connected
 
-    (See: https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/)
+    ![Screenshot updraftplus dashboard - CLI and Migrator addon successful activated](screenshot_updraftplus_activated.png)    
+    
+    (See https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/ for more details, you need to use the provided .zip to install it)
+    
+5. **Create a backup point locally to enable easier resets**
 
 ## Pull a remote site
 
