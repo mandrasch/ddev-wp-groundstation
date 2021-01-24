@@ -13,7 +13,15 @@ UPDRAFT_TERMINAL_OUTPUT=`wp updraftplus backup --label="Fresh installed wordpres
 UPDRAFT_NONCE=${UPDRAFT_TERMINAL_OUTPUT##*: }
 # TODO: Error handling - check if nonce contains numbers/characters? check format?
 echo "Saving this nonce/identifier in local file for later ..."
-echo 'FRESH_INSTALL_NONCE="'"$UPDRAFT_NONCE"'"' > ../fresh_install_nonce.txt
+# empty the file
+> ../fresh_install_nonce.txt
+echo 'FRESH_INSTALL_NONCE="'"$UPDRAFT_NONCE"'"' >> ../fresh_install_nonce.txt
 # this can be used later with source command
+
+# save wpcore version because it's not backupped per default by updraftplus
+WP_CORE_VERSION=`wp core version`
+echo "Save wordpress core version information (${WP_CORE_VERSION}) ..."
+echo "Saving this information in local file for later ..."
+echo 'WP_CORE_VERSION="'"$WP_CORE_VERSION"'"' >> ../fresh_install_nonce.txt
 
 echo "All good, move on with ddev pull-wp. :)"

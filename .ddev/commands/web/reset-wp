@@ -11,6 +11,11 @@ NONCE_FILE=/var/www/html/fresh_install_nonce.txt
 if [[ -f "$NONCE_FILE" ]]
 then
     source "$NONCE_FILE"
+    
+    echo "Setting current wordpress version to version of restore point (${WP_CORE_VERSION}) ..."
+    #TODO: compare
+    wp core update --version=${WP_CORE_VERSION} --force
+    
     echo "Nonce retrieved for fresh restore point: ${FRESH_INSTALL_NONCE}"
     echo "Restoring the local site ..."
     
