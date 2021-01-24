@@ -19,7 +19,9 @@ Scared a wordpress updates will break your old site? Want to play around with yo
 
 2. 🤖 CLI local <-> CLI remote 🤖 
     
-    In CLI<->CLI (commandline-to-commandline) mode you can also create backups on remote site from your local machine, no need to visit the WP dashboard of your remote site. You can also get the <nonce>-identifier for the latest backup, which saves time syncing. You'll need activated premium / addon license on local and remote machine(s).
+    You'll need activated premium (or addon licenses) on local and remote machine(s) for updraftplus. 
+    
+    In CLI<->CLI (commandline-to-commandline) mode you can also create backups on remote site from your local machine, no need to visit the WP dashboard of your remote site. You can also get the <nonce>-identifier for the latest backup, which saves time syncing. 
 
 ## Install / Setup
 
