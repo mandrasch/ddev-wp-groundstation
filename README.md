@@ -2,31 +2,24 @@
 
 ⚠️ Status: Experimental, use at own risk 👷‍♀️⚠️
 
-## Description
-
 Scared a wordpress updates will break your old site? Want to play around with your wordpress site locally? DDEV pull-wp contains custom DDEV commands for pulling a live website to your local machine with just a single command (at least, this is the goal ;-)). 
 
 ## Prerequisites
 
 - [DDEV](https://www.ddev.com/ddev-local/) installed on your local machine
-- License for addons: [updraftplus CLI](https://updraftplus.com/shop/wp-cli/) and [updraftplus Migrator](https://updraftplus.com/migrator/)
-  (These are also included in [updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/))
+- [updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/) license
+- (or [updraftplus CLI](https://updraftplus.com/shop/wp-cli/) and [updraftplus Migrator](https://updraftplus.com/migrator/) license)
 - SSH and rsync on remote server/webspace (live website)
-  (Not all webspaces support this unfortunately)
 
 ## Usage scenarios
 
-1. 🤖 CLI <-> free 
-    
-    Local DDEV with updraftplus Premium (or Migrator+CLI-addon license) <----> Wordpress live site (free version updraftplus)
-    
-    *Remote sites only need the free version of updraftplus plugin, but it is better for this workflow to install it via .zip as well from https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/, not from wordpress plugin directory*
+1. 🤖 CLI local <-> free updraftplus on remote site
 
-2. 🤖 CLI <-> CLI 🤖 
+    In this mode you create the backup on your remote site with the free updraftplus using the WP dashboard. Afterwards you can sync it to your local machine via the local WPCLI addon and Migrator addon (both $) of updraftplus activated on your local machine.
+
+2. 🤖 CLI local <-> CLI remote 🤖 
     
-    Local DDEV with updraftplus Premium (or Migrator+CLI-addon license) <----> Wordpress live site (updraftplus premium or Migrator+CLI addon)
-    
-    In CLI<->CLI (commandline-to-commandline) mode you can also create backups on remote site from your local machine, no need to visit the WP dashboard of your remote site. You can also get the <nonce>-identifier for the latest backup, which saves time.
+    In CLI<->CLI (commandline-to-commandline) mode you can also create backups on remote site from your local machine, no need to visit the WP dashboard of your remote site. You can also get the <nonce>-identifier for the latest backup, which saves time syncing. You'll need activated premium / addon license on local and remote machine(s).
 
 ## Install / Setup
 
