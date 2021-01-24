@@ -9,6 +9,10 @@
 # TODO: $DDEV_DOCROOT is empty, otherwise we could use it?
 cd /var/www/html/wordpress/
 
+# TODO: Configure if remote website has premium/WPCLI addon activated or not - prompt user? Config file?
+
+# TODO Configure if we should create backup on remote site or not (if WPCLI is activated, we can get the latest nonce) [it takes long]
+
 if [ -z "$1" ]
   then
     echo "Please provide ssh connection information (e.g. ddev pull-wp sshuser@sshost.xyz /html/wordpress) :-)"
@@ -28,33 +32,85 @@ fi
 # check if updraftplus CLI is actived on local instance
 wp updraftplus existing_backups >/dev/null
 if [ $? -eq 0 ]; then
-    echo "Updraftplus CLI is active..."
+    echo "Updraftplus CLI is active on local machine..."
 else
-    echo "Please activate updraftplus CLI and Migrator addon in WP Dashboard."
-    echo "(Updraftplus configuration is overwritten by restore process)"
+    echo "Please activate updraftplus CLI and Migrator addon in WP Dashboard in your local DDEV site, aborting."
+    echo "(Updraftplus configuration is overwritten by restore process, maybe you need to reactivate it)"
+    exit 1
+fi
+# TODO: check migrator addon existence on local as well?
+
+echo "Is the updraftplus CLI addon available on remote site?"
+UPDRAFT_CLI_ACTIVATED_DEFAULT="no"
+read -p "Updraftplus CLI available (yes/no)? [$UPDRAFT_CLI_ACTIVATED_DEFAULT]: " UPDRAFT_CLI_ACTIVATED_INPUT
+UPDRAFT_CLI_ACTIVATED="${UPDRAFT_CLI_ACTIVATED_INPUT:-$UPDRAFT_CLI_ACTIVATED_DEFAULT}"
+if [ $UPDRAFT_CLI_ACTIVATED != "yes" && $UPDRAFT_CLI_ACTIVATED != "no"  ]
+then
+    echo "Please enter yes or no, aborting."
     exit 1
 fi
 
-# TODO: check migrator as well?
+if [ $UPDRAFT_CLI_ACTIVATED == "yes"]
+  then
+    echo "Do you want to create a backup on remote site via CLI addon?"
+    CREATE_BACKUP_ON_REMOTE_DEFAULT="no"
+    read -p "Do you want to create a backup on remote site via CLI (yes/no)? [$CREATE_BACKUP_ON_REMOTE_DEFAULT]: " CREATE_BACKUP_ON_REMOTE_INPUT
+    CREATE_BACKUP_ON_REMOTE="${CREATE_BACKUP_ON_REMOTE_INPUT:-$CREATE_BACKUP_ON_REMOTE_DEFAULT}"
+    if [ $CREATE_BACKUP_ON_REMOTE != "yes" && $CREATE_BACKUP_ON_REMOTE != "no"  ]
+      then
+        echo "Please enter yes or no, aborting."
+        exit 1
+    fi
+
+    if [ $CREATE_BACKUP_ON_REMOTE == "yes" ]
+      then
+        echo "Create backup on remote storage via SSH..."
+        echo "(This can take some time)"
+        # we could use include-files= and also backup wpcore, but we don't do it to be compatible with the free version workflow
+        UPDRAFT_TERMINAL_OUTPUT=`ssh ${SSH_USER_HOST} wp updraftplus backup --path=${SSH_WORDPRESS_PATH}
+        wp updraftplus backup && wp updraftplus get_latest_full_backup`
+      else
+        # Just get the latest full backup id from remote
+        echo "Getting the updraftplus nonce for latest backup from SSH:"
+        UPDRAFT_TERMINAL_OUTPUT=`ssh ${SSH_USER_HOST} wp updraftplus get_latest_full_backup --path=${SSH_WORDPRESS_PATH}`
+    fi
+
+    # we strip identifier from string after last : character
+    # (Output will be something like: Success: Latest full backup found identifier: a7cfeXXXXc281)
+    UPDRAFT_NONCE=${UPDRAFT_TERMINAL_OUTPUT##*: }
+    # TODO: Error handling - check if nonce contains numbers/characters? check format?
+    echo "Updraft nonce on remote is ${UPDRAFT_NONCE}"
+
+  # No updratfplus CLI on remote activated
+  else
+    UPDRAFT_NONCE=""
+fi
+
+echo "Sync backup files from remote server to local DDEV..."
+echo "SSH password is needed again unfortunately, since we do not store it (use SSH keys to avoid this):"
+# see https://rsync.snipline.io/ for details
+if [ $UPDRAFT_NONCE != ""]
+  then
+    echo "Trying to download only files with nonce ${UPDRAFT_NONCE} in it..."
+    rsync --archive --human-readable --rsh ssh --progress --include="*${UPDRAFT_NONCE}*.zip" --include="*${UPDRAFT_NONCE}*.gz" --exclude="*" ${SSH_USER_HOST}:${SSH_WORDPRESS_PATH}/wp-content/updraft/ wp-content/updraft/
+  else
+    rsync --archive --human-readable --rsh ssh --progress --include="*${UPDRAFT_NONCE}*.zip" --include="*${UPDRAFT_NONCE}*.gz" --exclude="*" ${SSH_USER_HOST}:${SSH_WORDPRESS_PATH}/wp-content/updraft/ wp-content/updraft/
+fi
+
+
+# EO CLI/Premium activiated on remote
+exit 1;
 
 # get remote wordpress version, save it as var
+# updraftplus free / standard version does not backup wpcore files
 WP_CORE_VERSION_LIVE_WEBSITE=`ssh ${SSH_USER_HOST} wp core version --path=${SSH_WORDPRESS_PATH}`
 echo "Live website has version: ${WP_CORE_VERSION_LIVE_WEBSITE}"
 
-# TODO: delete older backups maybe transferred from other sites?
-# TODO: Prompt user if this okay?
-
-echo "Sync backup files from remote server to local DDEV..."
-echo "(SSH password is needed again unfortunately)"
-# TODO: only the newest, only with a specific nonce in it?
-# see https://rsync.snipline.io/ for details
-# updraft keeps themes-old/, we don't need to sync it
-rsync --archive --human-readable --rsh ssh --progress --include="*.zip" --include="*.gz" --exclude="*" ${SSH_USER_HOST}:${SSH_WORDPRESS_PATH}/wp-content/updraft/ wp-content/updraft/
-#rsync -avzh ${SSH_USER_HOST}:${SSH_WORDPRESS_PATH}/wp-content/updraft/ wp-content/updraft/
-
 # downgrade current ddev site to that wp version (updraftplus does not backup core files in free version, MoreFiles addon needed)
+echo "We downgrade the local environment to match the remote site to run a realistic tests on local machine..."
+
 # TODO: if core version is the same, don't change it
-echo "We downgrade the local environment to match the remote site run a realistic test..."
+
 wp core update --version=${WP_CORE_VERSION_LIVE_WEBSITE} --force
 
 echo "Restoring latest backup we received from remote machine ..."
@@ -71,7 +127,7 @@ UPDRAFT_NONCE=${UPDRAFT_TERMINAL_OUTPUT##*: }
 # Restore this site, important: --migration=true
 # You could also set --delete-during-restore=true, but right now I leave it deactivated
 echo "Restoring backup with nonce/identifier ${UPDRAFT_NONCE} and --migration=true..."
-wp updraftplus restore $UPDRAFT_NONCE --migration=true 
+wp updraftplus restore $UPDRAFT_NONCE --migration=true
 
 echo "Delete -old/-directories created by updraftplus"
 find . -type d -name '*-old' -exec rm -r {} +
