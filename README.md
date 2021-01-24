@@ -27,19 +27,19 @@ Scared a wordpress updates will break your old site? Want to play around with yo
 
 1. **Clone this repository, open folder in terminal**
 
-2. **Install fresh wordpress locally**
+2. **Install fresh wordpress locally (installs updraft automatically)**
 
     ```shell
     ddev install-wp
     ```
 
     (This command will automatically install wordpress and activate the .zip file need to activate updraftplus for addons (See: https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/). At the end of the installation, you will be prompted for an admin password.)
-    
-    [Use `ddev launch` to open the local site directly in browser]
 
 3. **Login into local wordpress**
 
     Login to https://pull-wp.ddev.site/wp-admin/ with user "admin" and your chosen password.
+    
+    [Use `ddev launch` to open the local site directly in browser]
 
 4. **Activate updraftplus CLI and Migrator add-on ($)** 
 
