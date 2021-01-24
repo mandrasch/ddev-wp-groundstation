@@ -4,15 +4,15 @@
 
 ## Description
 
-Scared wordpress updates will break your wordpress site? Not anymore. Use the open source tool DDEV with updraftplus addons, test updates beforehand in a local dev enviroment - without breaking anything on the live website. This repository contains a preconfigured DDEV with custom commands.
+Scared a wordpress updates will break your old site? Want to play around with your wordpress site locally? DDEV pull-wp contains custom DDEV commands for pulling a live website to your local machine with just a single command (at least, this is the goal ;-)). 
 
 ## Prerequisites
 
 - [DDEV](https://www.ddev.com/ddev-local/) installed on your local machine
 - License for addons: [updraftplus CLI](https://updraftplus.com/shop/wp-cli/) and [updraftplus Migrator](https://updraftplus.com/migrator/)
   (These are also included in [updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/))
-- SSH and rsync on remote server/webspace 
-  (Not all webspaces support this)
+- SSH and rsync on remote server/webspace (live website)
+  (Not all webspaces support this unfortunately)
 
 ## Usage scenarios
 
@@ -24,7 +24,7 @@ Scared wordpress updates will break your wordpress site? Not anymore. Use the op
 
 2. 🤖 CLI <-> CLI 🤖 
     
-    Local DDEV with updraftplus Premium (or Migrator+CLI-addon license) <----> Wordpress live site (updraftlus premium or Migrator+CLI addon)
+    Local DDEV with updraftplus Premium (or Migrator+CLI-addon license) <----> Wordpress live site (updraftplus premium or Migrator+CLI addon)
     
     In CLI<->CLI (commandline-to-commandline) mode you can also create backups on remote site from your local machine, no need to visit the WP dashboard of your remote site. You can also get the <nonce>-identifier for the latest backup, which saves time.
 
