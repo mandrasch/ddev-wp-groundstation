@@ -14,6 +14,7 @@
 !/.ddev/commands/web/delete-backups
 !/.ddev/commands/web/reset-wp
 !/.ddev/commands/web/setup-symlink
+!/.ddev/commands/web/create-local-backup
 
 # Ignore wordpress
 /wordpress/*

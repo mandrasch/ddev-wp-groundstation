@@ -59,6 +59,7 @@ if [[ $UPDRAFT_CLI_ACTIVATED == "yes" ]]
     CREATE_BACKUP_ON_REMOTE_DEFAULT="no"
     read -p "Create new backup on remote? (yes/no) [$CREATE_BACKUP_ON_REMOTE_DEFAULT]: " CREATE_BACKUP_ON_REMOTE_INPUT
     CREATE_BACKUP_ON_REMOTE="${CREATE_BACKUP_ON_REMOTE_INPUT:-$CREATE_BACKUP_ON_REMOTE_DEFAULT}"
+    echo "Option chosen: ${CREATE_BACKUP_ON_REMOTE}"
     if [[ $CREATE_BACKUP_ON_REMOTE != "yes" && $CREATE_BACKUP_ON_REMOTE != "no"  ]]
       then
         echo "Please enter yes or no, aborting."

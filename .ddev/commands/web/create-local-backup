@@ -1,0 +1,19 @@
+#!/bin/bash
+
+## Description: Create a local backup point after fresh install and activated updraftplus license
+## Usage: create-local-backup
+## Example: "ddev create-local-backup"
+
+cd wordpress/
+
+echo "Creating local backup ..."
+UPDRAFT_TERMINAL_OUTPUT=`wp updraftplus backup --label="Fresh installed wordpress with updraftplus activated"`
+# we strip identifier (nonce) for backup from string after last : character
+# (Output will be something like: Success ... identifier: a7cfeXXXXc281)
+UPDRAFT_NONCE=${UPDRAFT_TERMINAL_OUTPUT##*: }
+# TODO: Error handling - check if nonce contains numbers/characters? check format?
+echo "Saving this nonce/identifier in local file for later ..."
+echo 'FRESH_INSTALL_NONCE="'"$UPDRAFT_NONCE"'"' > ../fresh_install_nonce.txt
+# this can be used later with source command
+
+echo "All good, move on. :)"

@@ -45,32 +45,7 @@ rm updraftplus.zip
 wp user update admin --prompt=user_pass
 
 echo "Fresh wordpress with updraftplus installed at ${DDEV_PRIMARY_URL} - nice!"
-echo "Next step: Activate your updratfplus premium license / CLI and Migrator plugin here:"
+echo "Next step: Activate your updraftplus premium license / CLI and Migrator plugin here:"
 echo "${DDEV_PRIMARY_URL}/wp-admin/options-general.php?page=updraftplus"
-echo "(You can launch your website with ddev launch from commandline)"
-
-echo "Do you want to create a local updraftplus backup to make resets easier after restore? (optional, recommened)"
-echo "Please activate your updraftplus license before(!) running this backup!"
-CREATE_LOCAL_BACKUP_DEFAULT="yes"
-read -p "Create local backup now? (yes/no) [$CREATE_LOCAL_BACKUP_DEFAULT]: " CREATE_LOCAL_BACKUP_INPUT
-CREATE_LOCAL_BACKUP="${CREATE_LOCAL_BACKUP_INPUT:-$CREATE_LOCAL_BACKUP_DEFAULT}"
-#echo "Option chosen: ${CREATE_LOCAL_BACKUP}"
-if [[ $CREATE_LOCAL_BACKUP != "yes" && $CREATE_LOCAL_BACKUP != "no"  ]]
-  then
-    echo "Please enter yes or no, aborting."
-    exit 1
-  fi
-
-if [[ $CREATE_LOCAL_BACKUP == "yes" ]]
-  then
-    echo "Creating local backup ..."
-    UPDRAFT_TERMINAL_OUTPUT=`wp updraftplus backup`
-    # we strip identifier (nonce) for backup from string after last : character
-    # (Output will be something like: Success ... identifier: a7cfeXXXXc281)
-    UPDRAFT_NONCE=${UPDRAFT_TERMINAL_OUTPUT##*: }
-    # TODO: Error handling - check if nonce contains numbers/characters? check format?
-    echo "Saving this nonce/identifier in local file ..."
-    echo 'FRESH_INSTALL_NONCE="'"$UPDRAFT_NONCE"'"' >> ../fresh_install_nonce.txt
-    # source it later with
-    # source ~/fresh_install_nonce.txt
-fi
+echo "[You can launch your website with ddev launch from commandline]"
+echo "Do not forget to run 'ddev create-local-backup' after updraftplus activation."

@@ -1,0 +1,24 @@
+#!/bin/bash
+
+## Description: Reset local installation to the backup created on setup
+## Usage: reset-wp
+## Example: "ddev reset-wp"
+
+cd wordpress/
+
+echo "Reading nonce information from file (maybe) created at install-wp ..."
+NONCE_FILE=/var/www/html/fresh_install_nonce.txt
+if [[ -f "$NONCE_FILE" ]]
+then
+    source "$NONCE_FILE"
+    echo "Nonce retrieved for fresh restore point: ${FRESH_INSTALL_NONCE}"
+    echo "Restoring the local site ..."
+    
+    wp updraftplus restore $FRESH_INSTALL_NONCE --migration=true
+    echo "Delete -old/-directories created by updraftplus"
+    find . -type d -name '*-old' -exec rm -r {} +
+
+    echo "Reset to fresh installation complete."
+else
+    echo "No nonce/restore point found, aborting."
+fi
