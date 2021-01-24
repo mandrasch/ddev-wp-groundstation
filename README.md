@@ -11,18 +11,6 @@ Scared a wordpress updates will break your old site? Want to play around with yo
 - (or [updraftplus CLI](https://updraftplus.com/shop/wp-cli/) and [updraftplus Migrator](https://updraftplus.com/migrator/) license)
 - SSH and rsync on remote server/webspace (live website)
 
-## Usage scenarios
-
-1. 🤖 CLI local <-> free updraftplus on remote site
-
-    In this mode you create the backup on your remote site with the free updraftplus using the WP dashboard. Afterwards you can sync it to your local machine via the local WPCLI addon and Migrator addon (both $) of updraftplus activated on your local machine.
-
-2. 🤖 CLI local <-> CLI remote 🤖 
-    
-    You'll need activated premium (or addon licenses) on local and remote machine(s) for updraftplus. 
-    
-    In CLI<->CLI (commandline-to-commandline) mode you can also create backups on remote site from your local machine, no need to visit the WP dashboard of your remote site. You can also get the <nonce>-identifier for the latest backup, which saves time syncing. 
-
 ## Install / Setup
 
 1. **Clone this repository, open folder in terminal**
@@ -112,30 +100,17 @@ Scared a wordpress updates will break your old site? Want to play around with yo
     
 3. **Start with ddev pull-wp again**
 
-## Full/hard reset
-  
-    Drop database datables and remove wordpress/-directory:
+## Usage scenarios
+
+1. 🤖 CLI local <-> free updraftplus on remote site
+
+    In this mode you create the backup on your remote site with the free updraftplus using the WP dashboard. Afterwards you can sync it to your local machine via the local WPCLI addon and Migrator addon (both $) of updraftplus activated on your local machine.
+
+2. 🤖 CLI local <-> CLI remote 🤖 
     
-    ```shell
-    ddev delete-wp
-    ```
-    If you need to remove other non-tracked files:
-    (Caution: also deletes ignored files + symlinked-/ folders)
+    You'll need activated premium (or addon licenses) on local and remote machine(s) for updraftplus. 
     
-    ```shell
-    git clean -fdx
-    ```
-    Delete complete DDEV containers:
-    
-    ```shell
-    ddev delete -O
-    ```
-    
-    If you made changes to DDEV files from this git repo, which you want to delete: 
-    
-    ```
-    git reset --hard`
-    ```
+    In CLI<->CLI (commandline-to-commandline) mode you can also create backups on remote site from your local machine, no need to visit the WP dashboard of your remote site. You can also get the <nonce>-identifier for the latest backup, which saves time syncing. 
   
 ## Advanced
 
@@ -170,6 +145,32 @@ ddev setup-symlink theme mychild-theme
 ```
 
 See ".ddev/commands/web/setup-symlink" for details.
+
+### Full/hard reset
+  
+    Drop database datables and remove wordpress/-directory:
+    
+    ```shell
+    ddev delete-wp
+    ```
+    If you need to remove other non-tracked files:
+    (Caution: also deletes ignored files + symlinked-/ folders)
+    
+    ```shell
+    git clean -fdx
+    ```
+    Delete complete DDEV containers:
+    
+    ```shell
+    ddev delete -O
+    ```
+    
+    If you made changes to DDEV files from this git repo, which you want to delete: 
+    
+    ```
+    git reset --hard`
+    ```
+
 
 ## Challenges
 
