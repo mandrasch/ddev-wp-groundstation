@@ -1,9 +1,11 @@
 #!/bin/bash
 
 ## Description: Migrate a remote website to a local DDEV
-## Usage: pull-wp
+## Usage: pull-wp [ssh_user_at_host] [wordpress_path_on_remote]
 ## Example: "pull-wp sshuser@host.xyz /html/wordpress"
 ## (Remote path - no trailing slash!)
+
+# TODO: add args for UPDRAFT_CLI_ACTIVATED & CREATE_BACKUP_ON_REMOTE
 
 # We use a subdirectory, see "docroot" in .ddev/config.yaml
 # TODO: $DDEV_DOCROOT is empty, otherwise we could use it?
@@ -42,27 +44,28 @@ fi
 
 echo "Is the updraftplus CLI addon available on remote site?"
 UPDRAFT_CLI_ACTIVATED_DEFAULT="no"
-read -p "Updraftplus CLI available (yes/no)? [$UPDRAFT_CLI_ACTIVATED_DEFAULT]: " UPDRAFT_CLI_ACTIVATED_INPUT
+read -p "Updraftplus CLI available on remote? (yes/no) [$UPDRAFT_CLI_ACTIVATED_DEFAULT]: " UPDRAFT_CLI_ACTIVATED_INPUT
 UPDRAFT_CLI_ACTIVATED="${UPDRAFT_CLI_ACTIVATED_INPUT:-$UPDRAFT_CLI_ACTIVATED_DEFAULT}"
-if [ $UPDRAFT_CLI_ACTIVATED != "yes" && $UPDRAFT_CLI_ACTIVATED != "no"  ]
+echo "Option chosen: ${UPDRAFT_CLI_ACTIVATED}"
+if [[ $UPDRAFT_CLI_ACTIVATED != "yes" && $UPDRAFT_CLI_ACTIVATED != "no"  ]]
 then
     echo "Please enter yes or no, aborting."
     exit 1
 fi
 
-if [ $UPDRAFT_CLI_ACTIVATED == "yes"]
+if [[ $UPDRAFT_CLI_ACTIVATED == "yes" ]]
   then
-    echo "Do you want to create a backup on remote site via CLI addon?"
+    echo "Do you want to create a new backup on remote site via CLI addon?"
     CREATE_BACKUP_ON_REMOTE_DEFAULT="no"
-    read -p "Do you want to create a backup on remote site via CLI (yes/no)? [$CREATE_BACKUP_ON_REMOTE_DEFAULT]: " CREATE_BACKUP_ON_REMOTE_INPUT
+    read -p "Create new backup on remote? (yes/no) [$CREATE_BACKUP_ON_REMOTE_DEFAULT]: " CREATE_BACKUP_ON_REMOTE_INPUT
     CREATE_BACKUP_ON_REMOTE="${CREATE_BACKUP_ON_REMOTE_INPUT:-$CREATE_BACKUP_ON_REMOTE_DEFAULT}"
-    if [ $CREATE_BACKUP_ON_REMOTE != "yes" && $CREATE_BACKUP_ON_REMOTE != "no"  ]
+    if [[ $CREATE_BACKUP_ON_REMOTE != "yes" && $CREATE_BACKUP_ON_REMOTE != "no"  ]]
       then
         echo "Please enter yes or no, aborting."
         exit 1
     fi
 
-    if [ $CREATE_BACKUP_ON_REMOTE == "yes" ]
+    if [[ $CREATE_BACKUP_ON_REMOTE == "yes" ]]
       then
         echo "Create backup on remote storage via SSH..."
         echo "(This can take some time)"
@@ -71,7 +74,8 @@ if [ $UPDRAFT_CLI_ACTIVATED == "yes"]
         wp updraftplus backup && wp updraftplus get_latest_full_backup`
       else
         # Just get the latest full backup id from remote
-        echo "Getting the updraftplus nonce for latest backup from SSH:"
+        echo "Getting the updraftplus nonce for latest backup on remote site ..."
+        echo "Please provide the SSH password (use SSH keys to avoid this prompt):"
         UPDRAFT_TERMINAL_OUTPUT=`ssh ${SSH_USER_HOST} wp updraftplus get_latest_full_backup --path=${SSH_WORDPRESS_PATH}`
     fi
 
@@ -86,30 +90,28 @@ if [ $UPDRAFT_CLI_ACTIVATED == "yes"]
     UPDRAFT_NONCE=""
 fi
 
-echo "Sync backup files from remote server to local DDEV..."
-echo "SSH password is needed again unfortunately, since we do not store it (use SSH keys to avoid this):"
+echo "Sync backup files from remote server to local DDEV (rsync) ..."
 # see https://rsync.snipline.io/ for details
-if [ $UPDRAFT_NONCE != ""]
+if [[ $UPDRAFT_NONCE != "" ]]
   then
-    echo "Trying to download only files with nonce ${UPDRAFT_NONCE} in it..."
+    echo "Downloading backup files with nonce ${UPDRAFT_NONCE} to local machine ..."
+    echo "Please provide the SSH password (use SSH keys to avoid this prompt):"
     rsync --archive --human-readable --rsh ssh --progress --include="*${UPDRAFT_NONCE}*.zip" --include="*${UPDRAFT_NONCE}*.gz" --exclude="*" ${SSH_USER_HOST}:${SSH_WORDPRESS_PATH}/wp-content/updraft/ wp-content/updraft/
   else
-    rsync --archive --human-readable --rsh ssh --progress --include="*${UPDRAFT_NONCE}*.zip" --include="*${UPDRAFT_NONCE}*.gz" --exclude="*" ${SSH_USER_HOST}:${SSH_WORDPRESS_PATH}/wp-content/updraft/ wp-content/updraft/
+    echo "Downloading all backup files from remote to local machine ..."
+    echo "Please provide the SSH password (use SSH keys to avoid this prompt):"
+    rsync --archive --human-readable --rsh ssh --progress --include="*.zip" --include="*.gz" --exclude="*" ${SSH_USER_HOST}:${SSH_WORDPRESS_PATH}/wp-content/updraft/ wp-content/updraft/
 fi
-
-
-# EO CLI/Premium activiated on remote
-exit 1;
 
 # get remote wordpress version, save it as var
 # updraftplus free / standard version does not backup wpcore files
 WP_CORE_VERSION_LIVE_WEBSITE=`ssh ${SSH_USER_HOST} wp core version --path=${SSH_WORDPRESS_PATH}`
 echo "Live website has version: ${WP_CORE_VERSION_LIVE_WEBSITE}"
 
+# TODO: if core version is the same, don't change it
+
 # downgrade current ddev site to that wp version (updraftplus does not backup core files in free version, MoreFiles addon needed)
 echo "We downgrade the local environment to match the remote site to run a realistic tests on local machine..."
-
-# TODO: if core version is the same, don't change it
 
 wp core update --version=${WP_CORE_VERSION_LIVE_WEBSITE} --force
 
@@ -118,18 +120,24 @@ echo "Rescan updraftplus storage..."
 # rescan storage
 wp updraftplus rescan_storage local
 
-# Updraft does output a full string instead of just the identifier
-# Output will be something like: Success: Latest full backup found identifier: a7cfeXXXXc281
-UPDRAFT_TERMINAL_OUTPUT=`wp updraftplus get_latest_full_backup`
-# we strip identifier after last : character
-UPDRAFT_NONCE=${UPDRAFT_TERMINAL_OUTPUT##*: }
+if [[ $UPDRAFT_NONCE == "" ]]
+  then
+    # If we don't have nonce information from remote (because of no wp-cli addon on remote), we need to get it from local
+    # Updraft does output a full string instead of just the identifier
+    # Output will be something like: Success: Latest full backup found identifier: a7cfeXXXXc281
+    UPDRAFT_TERMINAL_OUTPUT_LOCAL=`wp updraftplus get_latest_full_backup`
+    # we strip identifier after last : character
+    UPDRAFT_NONCE=${UPDRAFT_TERMINAL_OUTPUT_LOCAL##*: }    
+fi
 
-# Restore this site, important: --migration=true
-# You could also set --delete-during-restore=true, but right now I leave it deactivated
+# Restore this site, important: --migration=true (replaces URLs in database)
+# We could also set --delete-during-restore=true, but if something fails we have to transfer files again to local machine
+# TODO: exclude wpcore, maybe wpcore was included on remote site via premium plugin?
 echo "Restoring backup with nonce/identifier ${UPDRAFT_NONCE} and --migration=true..."
 wp updraftplus restore $UPDRAFT_NONCE --migration=true
 
 echo "Delete -old/-directories created by updraftplus"
 find . -type d -name '*-old' -exec rm -r {} +
 
-echo "Restore ended, have fun!"
+echo "pull-wp ended, have fun testing locally!"
+echo "(And please check if you can participate in fighting the climate emergency on our planet :))"
