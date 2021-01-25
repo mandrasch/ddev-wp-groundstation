@@ -4,7 +4,6 @@
 
 Scared a wordpress update will break your old site? Want to play around with your wordpress site locally? DDEV pull-wp contains DDEV commands for pulling a live website to your local machine with just a single command (at least, this is the goal ;-)). 
 
-![Screenshot of commandline with command ddev-pull-wp](screenshot.png)    
 
 ## Prerequisites
 
