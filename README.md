@@ -1,20 +1,29 @@
 # DDEV pull-wp
+Scared a wordpress update will break your old site? Why not test it locally beforehand?
 
 ⚠️ Status: Work in progress, use at own risk 👷‍♀️⚠️
-
-## Description
-
-Scared a wordpress update will break your old site? 
-
-This project contains [custom DDEV commands](https://ddev.readthedocs.io/en/stable/users/extend/custom-commands/) for pulling a live website to your local machine with just a single command (at least, this is the goal ;-)). 
-
-In this local instance you can safely experiment with your wordpress site, e.g. perform updates and check for errors - without breaking the live site.
-
-*See [".ddev/commands/web"](https://github.com/programmieraffe/ddev-pull-wp/tree/main/.ddev/commands/web) for implementation.*
 
 ## Demo (Screencast)
 
 **[https://www.youtube.com/watch?v=9V9DmjIlrbI](https://www.youtube.com/watch?v=9V9DmjIlrbI)**
+
+## Description
+
+This project contains [custom DDEV commands](https://ddev.readthedocs.io/en/stable/users/extend/custom-commands/) for pulling a live website to your local machine with just a single command (at least, this is the goal ;-)):
+
+```shell
+# setup 
+git clone https://github.com/programmieraffe/ddev-pull-wp.git
+cd ddev-pull-wp
+ddev install-wp
+# activate updraftplus premium on local (see setup guide)
+ddev create-local-backup
+
+# pull a live website to local DDEV:
+ddev pull-wp ssh_username@ssh_host.xyz /path/to/wordpress/on/remote
+```
+
+*An [Updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/) license is required for the local and the remote live site. For technical details of the implementation see [".ddev/commands/web"](https://github.com/programmieraffe/ddev-pull-wp/tree/main/.ddev/commands/web).*
 
 ## Prerequisites
 
@@ -86,7 +95,7 @@ In this local instance you can safely experiment with your wordpress site, e.g. 
     Now we can pull the backup from the live website to our local site:
     
     ```shell
-    ddev pull-wp sshusername@host.xyz /html/wordpress
+    ddev pull-wp ssh_username@ssh_host.xyz /path/to/wordpress/on/remote
     ```
     
     *This command connects to the remote live website via SSH, creates a backup via updraftplus CLI, rsyncs the backup files to local DDEV, restores it with help of updraftplus Migrator and CLI feature.*
