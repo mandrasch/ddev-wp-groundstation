@@ -80,8 +80,8 @@ if [[ $UPDRAFT_CLI_ACTIVATED == "yes" ]]
       then
         echo "Create backup on remote storage via SSH..."
         echo "(This can take some time)"
-        # we could use include-files= and also backup wpcore, but we don't do it to be compatible with the free version workflow
-        UPDRAFT_TERMINAL_OUTPUT=`ssh ${SSH_USER_HOST} wp updraftplus backup --path=${SSH_WORDPRESS_PATH} && wp updraftplus get_latest_full_backup`
+        # we could set include-files= to wpcore, but we don't do it to be compatible with the free version workflow
+        UPDRAFT_TERMINAL_OUTPUT=`ssh ${SSH_USER_HOST} "wp updraftplus backup --path=${SSH_WORDPRESS_PATH} && wp updraftplus get_latest_full_backup --path=${SSH_WORDPRESS_PATH}"`
       else
         # Just get the latest full backup id from remote
         echo "Getting the updraftplus nonce for latest backup on remote site ..."
@@ -98,6 +98,8 @@ if [[ $UPDRAFT_CLI_ACTIVATED == "yes" ]]
   else
     UPDRAFT_NONCE=""  
 fi
+
+echo "Updraft nonce was set to: ${UPDRAFT_NONCE}"
 
 echo "Sync backup files from remote server to local DDEV (rsync) ..."
 # see https://rsync.snipline.io/ for details
