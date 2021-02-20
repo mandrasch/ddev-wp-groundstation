@@ -2,8 +2,11 @@
 
 ⚠️ Status: Work in progress, use at own risk 👷‍♀️⚠️
 
-Scared a wordpress update will break your old site? Want to play around with your wordpress site locally? DDEV pull-wp contains DDEV commands for pulling a live website to your local machine with just a single command (at least, this is the goal ;-)). 
+Scared a wordpress update will break your old site? Want to play around with your wordpress site locally? This project contains DDEV commands for pulling a live website to your local machine with just a single command (at least, this is the goal ;-)). 
 
+## Demo (Screencast)
+
+**[https://www.youtube.com/watch?v=9V9DmjIlrbI](https://www.youtube.com/watch?v=9V9DmjIlrbI)**
 
 ## Prerequisites
 
@@ -11,11 +14,8 @@ Scared a wordpress update will break your old site? Want to play around with you
 - [updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/) license
 - SSH and rsync on remote server/webspace (live website)
 
+
 ## Install / Setup
-
-Screencast-Demo:
-
-**[https://www.youtube.com/watch?v=9V9DmjIlrbI](https://www.youtube.com/watch?v=9V9DmjIlrbI)**
 
 1. **Clone this repository, open folder in terminal**
 
@@ -53,7 +53,7 @@ Screencast-Demo:
     
 6. **Create a backup point locally to enable easier resets**
 
-    We create a restore point (this will be useful later):
+    We create a restore point (this will be useful later) after successful activation of updraftplus premium:
     
     ```shell
     ddev create-local-backup
