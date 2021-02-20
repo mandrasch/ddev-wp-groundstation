@@ -13,9 +13,9 @@ Scared a wordpress update will break your old site? Want to play around with you
 
 ## Install / Setup
 
-Screencast:
+Screencast-Demo:
 
-
+**[https://www.youtube.com/watch?v=9V9DmjIlrbI](https://www.youtube.com/watch?v=9V9DmjIlrbI)**
 
 1. **Clone this repository, open folder in terminal**
 
@@ -35,22 +35,26 @@ Screencast:
     
     [Use `ddev launch` to open the local site directly in browser]
 
-4. **Activate updraftplus premium  ($)** 
+4. **Login to updraftplus premium  ($)** 
 
-    Activate updraftplus premium license or paid license for updraftplus CLI and Migrator in the dashboard:
+    Activate updraftplus premium license with your credentials:
 
     https://pull-wp.ddev.site/wp-admin/options-general.php?page=updraftplus
     
     ![Screenshot updraftplus dashboard - add credentials in Connect with updraftplus account](screenshot_updraftplus_connect.png)
-
-    ![Screenshot updraftplus dashboard - premium license activated](screenshot_updraftplus_premium_activated.png)
     
     (See https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/ for more details)
     
-5. **Create a backup point locally to enable easier resets**
+5. **Activate "all addons" to enable WPCLI and Migrator feature**
 
-    If the updraftplus license is activated locally, we create a restore point (this will be useful later):
+    Make sure to click "All addons" - "activate it on this site"
 
+    ![Screenshot updraftplus dashboard - premium license activated](screenshot_updraftplus_premium_activate.png)
+    
+6. **Create a backup point locally to enable easier resets**
+
+    We create a restore point (this will be useful later):
+    
     ```shell
     ddev create-local-backup
     ```
@@ -129,18 +133,6 @@ Screencast:
     
 3. **Start with ddev pull-wp again**
 
-## Usage scenarios
-
-1. updraftplus CLI local <-> free updraftplus on remote site (🤖 <-> 📁)
-
-    In this mode you create the backup on your remote site with the free updraftplus using the WP dashboard. Afterwards you can sync it to your local machine via the local WPCLI addon and Migrator addon (both $) of updraftplus activated on your local machine.
-
-2. updraftplus CLI local <-> updraftplus CLI remote (🤖 <-> 🤖)
-    
-    You'll need activated premium (or addon licenses) on local and remote machine(s) for updraftplus. 
-    
-    In CLI<->CLI (commandline-to-commandline) mode you can also create backups on remote site from your local machine, no need to visit the WP dashboard of your remote site. You can also get the <nonce>-identifier for the latest backup, which saves time syncing. 
-  
 ## Advanced
 
 ### Local PHP/MySQL version
