@@ -2,7 +2,13 @@
 
 ⚠️ Status: Work in progress, use at own risk 👷‍♀️⚠️
 
-Scared a wordpress update will break your old site? Want to play around with your wordpress site locally? This project contains DDEV commands for pulling a live website to your local machine with just a single command (at least, this is the goal ;-)). 
+Scared a wordpress update will break your old site? 
+
+This project contains [custom DDEV commands](https://ddev.readthedocs.io/en/stable/users/extend/custom-commands/) for pulling a live website to your local machine with just a single command (at least, this is the goal ;-)). 
+
+In this local instance you can safely experiment with your wordpress site, e.g. perform updates and check for errors - without breaking the live site.
+
+*See [".ddev/commands/web"](https://github.com/programmieraffe/ddev-pull-wp/tree/main/.ddev/commands/web) for implementation.*
 
 ## Demo (Screencast)
 
@@ -19,13 +25,13 @@ Scared a wordpress update will break your old site? Want to play around with you
 
 1. **Clone this repository, open folder in terminal**
 
-2. **Install fresh wordpress locally (installs updraft automatically)**
+2. **Install fresh wordpress locally**
 
     ```shell
     ddev install-wp
     ```
 
-    This command will automatically install wordpress and activate the .zip file need to activate updraftplus for addons, see: https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/]. 
+    *This command will automatically install wordpress and activate the .zip file need to activate updraftplus for addons, see: https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/].* 
       
     At the end of the installation, you will be prompted for an admin password.
 
@@ -37,23 +43,21 @@ Scared a wordpress update will break your old site? Want to play around with you
 
 4. **Login to updraftplus premium  ($)** 
 
-    Activate updraftplus premium license with your credentials:
+    Activate updraftplus premium license with your credentials. To do that, navigate to Wordpress Dashboard > Settings > updraftplus:
 
     https://pull-wp.ddev.site/wp-admin/options-general.php?page=updraftplus
     
     ![Screenshot updraftplus dashboard - add credentials in Connect with updraftplus account](screenshot_updraftplus_connect.png)
     
-    (See https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/ for more details)
-    
 5. **Activate "all addons" to enable WPCLI and Migrator feature**
 
-    Make sure to click "All addons" - "activate it on this site"
+    Make sure to click "activate it on this site":
 
     ![Screenshot updraftplus dashboard - premium license activated](screenshot_updraftplus_premium_activate.png)
     
-6. **Create a backup point locally to enable easier resets**
+6. **Create a local backup**
 
-    We create a restore point (this will be useful later) after successful activation of updraftplus premium:
+    We create a local backup (this will be useful later) after successful activation of updraftplus premium:
     
     ```shell
     ddev create-local-backup
