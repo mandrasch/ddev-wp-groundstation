@@ -9,27 +9,30 @@ Scared a wordpress update will break your old site? Why not test it locally befo
 
 ## Description
 
-This project contains [custom DDEV commands](https://ddev.readthedocs.io/en/stable/users/extend/custom-commands/) for pulling a live website to your local machine with just a single command (at least, this is the goal ;-)):
+This project contains [custom DDEV commands](https://ddev.readthedocs.io/en/stable/users/extend/custom-commands/) for pulling a live website to your local machine with just a single command. This is possible with the help of the CLI and site migration feature of [Updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/) ($). 
 
 ```shell
 # setup 
 git clone https://github.com/programmieraffe/ddev-pull-wp.git
-cd ddev-pull-wp
+cd ddev-pull-wp/
 ddev install-wp
 # activate updraftplus premium on local (see setup guide)
 ddev create-local-backup
 
 # pull a live website to local DDEV:
 ddev pull-wp ssh_username@ssh_host.xyz /path/to/wordpress/on/remote
+
+# have fun
+ddev launch
 ```
 
-*An [Updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/) license is required for the local and the remote live site. For technical details of the implementation see [".ddev/commands/web"](https://github.com/programmieraffe/ddev-pull-wp/tree/main/.ddev/commands/web).*
+* For technical details of the implementation see [".ddev/commands/web"](https://github.com/programmieraffe/ddev-pull-wp/tree/main/.ddev/commands/web).*
 
 ## Prerequisites
 
 - [DDEV](https://www.ddev.com/ddev-local/) installed on your local machine
 - [updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/) license
-- SSH and rsync on remote server/webspace (live website)
+- SSH access, WPCLI and rsync available on webspace of the live website
 
 
 ## Install / Setup
