@@ -10,6 +10,7 @@
 !/.ddev/commands/web/
 /.ddev/commands/web/*
 !/.ddev/commands/web/pull-wp
+!/.ddev/commands/web/pull-wp-hybrid-mode-old
 !/.ddev/commands/web/install-wp
 !/.ddev/commands/web/delete-backups
 !/.ddev/commands/web/reset-wp

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-## Description: Install fresh wordpress with updraftplus
+## Description: Install fresh wordpress with updraftplus premium .zip plugin
 ## Usage: install-wp
 ## Example: "ddev install-wp <de_DE>"
 

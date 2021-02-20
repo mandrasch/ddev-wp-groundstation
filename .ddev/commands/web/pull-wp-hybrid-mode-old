@@ -1,17 +1,19 @@
 #!/bin/bash
 
 ## Description: Migrate a remote website to a local DDEV
-## Usage: pull-wp [ssh_user_at_host] [wordpress_path_on_remote]
+## Usage: pull-wp-hybrid [ssh_user_at_host] [wordpress_path_on_remote]
 ## Example: "pull-wp sshuser@host.xyz /html/wordpress"
 ## (Remote path - no trailing slash!)
 
-# Requirements:
-# This script assumes that updraftplus premium is activated on remote site
+# TODO: add args for UPDRAFT_CLI_ACTIVATED & CREATE_BACKUP_ON_REMOTE
 
-# Change current directory to wordpress
-# (We use a subdirectory for wordpress, see "docroot"-setting in .ddev/config.yaml)
-# TODO: $DDEV_DOCROOT is empty, otherwise we could use this var instead of hardcode value?
+# We use a subdirectory, see "docroot" in .ddev/config.yaml
+# TODO: $DDEV_DOCROOT is empty, otherwise we could use it?
 cd /var/www/html/wordpress/
+
+# TODO: Configure if remote website has premium/WPCLI addon activated or not - prompt user? Config file?
+
+# TODO Configure if we should create backup on remote site or not (if WPCLI is activated, we can get the latest nonce) [it takes long]
 
 if [ -z "$1" ]
   then
@@ -29,28 +31,40 @@ if [ -z "$2" ]
     SSH_WORDPRESS_PATH="${2}"
 fi
 
-# Flag for updraftplus backup nonce (otherwise new backup is created)
-# -nonce=
-# TODO add support for "latest backup" as well?
-# https://stackoverflow.com/a/9274633
-# https://linuxhint.com/getopts-usage-example-linux/ 
-# echo "Received nonce from commandline call: ${UPDRAFT_NONCE}";
-# Right now we always create a fresh backup
-CREATE_BACKUP_ON_REMOTE='yes'
-
-# TODO add option for updraftplus free support (without cli on remote)
-# Right now, we just support updraftplus premium with CLI
-UPDRAFT_CLI_ACTIVATED='yes'
-
-# ------------------- Checks -----------------------------
-
 # check if updraftplus CLI is actived on local instance
 wp updraftplus existing_backups >/dev/null
 if [ $? -eq 0 ]; then
     echo "Updraftplus CLI is active on local machine..."
 else
-    echo "Please activate updraftplus premium in WP Dashboard in your local DDEV site, aborting."
+    echo "Please activate updraftplus CLI and Migrator addon in WP Dashboard in your local DDEV site, aborting."
+    echo "(Updraftplus configuration is overwritten by restore process, maybe you need to reactivate it)"
     exit 1
+fi
+# TODO: check migrator addon existence on local as well?
+
+echo "Is the updraftplus CLI addon available on remote site?"
+UPDRAFT_CLI_ACTIVATED_DEFAULT="no"
+read -p "Updraftplus CLI available on remote? (yes/no) [$UPDRAFT_CLI_ACTIVATED_DEFAULT]: " UPDRAFT_CLI_ACTIVATED_INPUT
+UPDRAFT_CLI_ACTIVATED="${UPDRAFT_CLI_ACTIVATED_INPUT:-$UPDRAFT_CLI_ACTIVATED_DEFAULT}"
+echo "Option chosen: ${UPDRAFT_CLI_ACTIVATED}"
+if [[ $UPDRAFT_CLI_ACTIVATED != "yes" && $UPDRAFT_CLI_ACTIVATED != "no"  ]]
+then
+    echo "Please enter yes or no, aborting."
+    exit 1
+fi
+
+if [[ $UPDRAFT_CLI_ACTIVATED == "yes" ]]
+  then
+    echo "Do you want to create a new backup on remote site via CLI addon?"
+    CREATE_BACKUP_ON_REMOTE_DEFAULT="no"
+    read -p "Create new backup on remote? (yes/no) [$CREATE_BACKUP_ON_REMOTE_DEFAULT]: " CREATE_BACKUP_ON_REMOTE_INPUT
+    CREATE_BACKUP_ON_REMOTE="${CREATE_BACKUP_ON_REMOTE_INPUT:-$CREATE_BACKUP_ON_REMOTE_DEFAULT}"
+    echo "Option chosen: ${CREATE_BACKUP_ON_REMOTE}"
+    if [[ $CREATE_BACKUP_ON_REMOTE != "yes" && $CREATE_BACKUP_ON_REMOTE != "no"  ]]
+      then
+        echo "Please enter yes or no, aborting."
+        exit 1
+    fi
 fi
 
 # checking ssh connection
@@ -66,13 +80,11 @@ else
 fi
 
 # get remote wordpress version, save it as var
-# updraftplus free / standard version does not backup wpcore files, therefore we handle it with wpcli
+# updraftplus free / standard version does not backup wpcore files
 echo "Getting the wpcore version information from remote site ..."
 echo "Please provide the SSH password (use SSH keys to avoid this prompt):"
 WP_CORE_VERSION_LIVE_WEBSITE=`ssh ${SSH_USER_HOST} wp core version --path=${SSH_WORDPRESS_PATH}`
 echo "Live website has version: ${WP_CORE_VERSION_LIVE_WEBSITE}"
-
-# create fresh backup on remote site
 
 if [[ $UPDRAFT_CLI_ACTIVATED == "yes" ]]
   then
@@ -112,21 +124,18 @@ if [[ $UPDRAFT_NONCE != "" ]]
     rsync --archive --human-readable --rsh ssh --progress --include="*.zip" --include="*.gz" --exclude="*" ${SSH_USER_HOST}:${SSH_WORDPRESS_PATH}/wp-content/updraft/ wp-content/updraft/
 fi
 
-# Version comparision local instance <-> remote
-# (updraftplus does not backup core files)
-WP_CORE_VERSION_LOCAL=`wp core version`
-if [[ "$WP_CORE_VERSION_LOCAL" == "$WP_CORE_VERSION_LIVE_WEBSITE" ]]; 
-  then
-    echo "Local instance runs same wp core version as remote website, no down-/upgrade needed."
-  else
-    # downgrade current ddev site to that wp version (updraftplus does not backup core files in free version, MoreFiles addon needed)
-    echo "We down/upgrade the local environment to match the remote site core version to run a realistic tests on local machine..."
-    wp core update --version=${WP_CORE_VERSION_LIVE_WEBSITE} --force
-fi
 
-# rescan storage
+
+# TODO: if core version is the same, don't change it
+
+# downgrade current ddev site to that wp version (updraftplus does not backup core files in free version, MoreFiles addon needed)
+echo "We downgrade the local environment to match the remote site to run a realistic tests on local machine..."
+
+wp core update --version=${WP_CORE_VERSION_LIVE_WEBSITE} --force
+
 echo "Restoring latest backup we received from remote machine ..."
 echo "Rescan updraftplus storage..."
+# rescan storage
 wp updraftplus rescan_storage local
 
 if [[ $UPDRAFT_NONCE == "" ]]
@@ -145,9 +154,8 @@ fi
 echo "Restoring backup with nonce/identifier ${UPDRAFT_NONCE} and --migration=true..."
 wp updraftplus restore $UPDRAFT_NONCE --migration=true
 
-echo "Delete '-old'-directories created by updraftplus"
+echo "Delete -old/-directories created by updraftplus"
 find . -type d -name '*-old' -exec rm -r {} +
 
-echo "pull-wp ended, have fun testing locally!"
-echo "[and please fight the climate emergency :)]"
-echo "You can always open your website with 'ddev launch' from commandline]"
+echo "pull-wp ended, have fun testing locally! (and fight the climate emergency :))"
+echo "[You can always open your website with 'ddev launch' from commandline]"

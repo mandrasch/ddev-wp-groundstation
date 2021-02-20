@@ -8,11 +8,14 @@ Scared a wordpress update will break your old site? Want to play around with you
 ## Prerequisites
 
 - [DDEV](https://www.ddev.com/ddev-local/) installed on your local machine
-- local site: [updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/) license <br> (or [updraftplus CLI](https://updraftplus.com/shop/wp-cli/) and [updraftplus Migrator](https://updraftplus.com/migrator/) single license)
-- remote/live site: free or premium version of updraftplus (see [Usage scenarios](#usage-scenarios))
+- [updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/) license
 - SSH and rsync on remote server/webspace (live website)
 
 ## Install / Setup
+
+Screencast:
+
+
 
 1. **Clone this repository, open folder in terminal**
 
@@ -22,7 +25,9 @@ Scared a wordpress update will break your old site? Want to play around with you
     ddev install-wp
     ```
 
-    (This command will automatically install wordpress and activate the .zip file need to activate updraftplus for addons, see: https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/]. At the end of the installation, you will be prompted for an admin password.)
+    This command will automatically install wordpress and activate the .zip file need to activate updraftplus for addons, see: https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/]. 
+      
+    At the end of the installation, you will be prompted for an admin password.
 
 3. **Login into local wordpress**
 
@@ -30,7 +35,7 @@ Scared a wordpress update will break your old site? Want to play around with you
     
     [Use `ddev launch` to open the local site directly in browser]
 
-4. **Activate updraftplus premium / CLI and Migrator add-on ($)** 
+4. **Activate updraftplus premium  ($)** 
 
     Activate updraftplus premium license or paid license for updraftplus CLI and Migrator in the dashboard:
 
@@ -39,10 +44,6 @@ Scared a wordpress update will break your old site? Want to play around with you
     ![Screenshot updraftplus dashboard - add credentials in Connect with updraftplus account](screenshot_updraftplus_connect.png)
 
     ![Screenshot updraftplus dashboard - premium license activated](screenshot_updraftplus_premium_activated.png)
-    
-    *or*
-
-    ![Screenshot updraftplus dashboard - CLI and Migrator addon successful activated](screenshot_updraftplus_activated.png)    
     
     (See https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/ for more details)
     
