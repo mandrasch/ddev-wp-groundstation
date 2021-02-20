@@ -55,7 +55,7 @@ In this local instance you can safely experiment with your wordpress site, e.g. 
 
     Make sure to click "activate it on this site":
 
-    ![Screenshot updraftplus dashboard - premium license activated](screenshots/screenshots/screenshot_updraftplus_premium_activate.png)
+    ![Screenshot updraftplus dashboard - premium license activated](screenshots/screenshot_updraftplus_premium_activate.png)
     
 6. **Create a local backup**
 
