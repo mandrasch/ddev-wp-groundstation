@@ -4,7 +4,7 @@
 ## Usage: create-local-backup
 ## Example: "ddev create-local-backup"
 
-cd wordpress/
+cd /var/www/html/wordpress/
 
 echo "Creating local backup ..."
 UPDRAFT_TERMINAL_OUTPUT=`wp updraftplus backup --label="Fresh installed wordpress with updraftplus activated"`
