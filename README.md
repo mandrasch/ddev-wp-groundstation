@@ -71,7 +71,7 @@ In this local instance you can safely experiment with your wordpress site, e.g. 
 
 1. **Install updraftplus premium on remote wordpress site**
 
-    Install updraftpflus with this [.zip file](https://updraftplus.com/wp-content/uploads/updraftplus.zip) (Source: [Updraftplus Docs](https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/))
+    Install updraftplus with this [.zip file](https://updraftplus.com/wp-content/uploads/updraftplus.zip) (Source: [Updraftplus Docs](https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/))
     
     Activate updraftplus premium by logging in with your updraftplus account
     
