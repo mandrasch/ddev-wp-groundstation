@@ -49,13 +49,13 @@ In this local instance you can safely experiment with your wordpress site, e.g. 
 
     https://pull-wp.ddev.site/wp-admin/options-general.php?page=updraftplus
     
-    ![Screenshot updraftplus dashboard - add credentials in Connect with updraftplus account](screenshot_updraftplus_connect.png)
+    ![Screenshot updraftplus dashboard - add credentials in Connect with updraftplus account](screenshots/screenshot_updraftplus_connect.png)
     
 5. **Activate "all addons" to enable WPCLI and Migrator feature**
 
     Make sure to click "activate it on this site":
 
-    ![Screenshot updraftplus dashboard - premium license activated](screenshot_updraftplus_premium_activate.png)
+    ![Screenshot updraftplus dashboard - premium license activated](screenshots/screenshots/screenshot_updraftplus_premium_activate.png)
     
 6. **Create a local backup**
 
@@ -79,7 +79,7 @@ In this local instance you can safely experiment with your wordpress site, e.g. 
 
     *If you have premium/WPCLI-addon installed on your remote/live site, you can skip this step.*
 
-    ![Screenshot updraftplus dashboard - Backup screen](screenshot_updraftplus_backup_now.png)
+    ![Screenshot updraftplus dashboard - Backup screen](screenshots/screenshot_updraftplus_backup_now.png)
   
     Just create a backup with "Backup now" in the Wordpress Dashboard of your live website.
 
