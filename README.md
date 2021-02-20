@@ -69,37 +69,46 @@ In this local instance you can safely experiment with your wordpress site, e.g. 
 
 ## Pull a remote site
 
-1. **Install updraftplus (free/premium) on remote wordpress site**
+1. **Install updraftplus premium on remote wordpress site**
 
-    On the remote site it's best to use the updraftplus .zip file as well from here: https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/ - but you don't have to activate/connect anything. Free version is enough. 
+    Install updraftpflus with this [.zip file](https://updraftplus.com/wp-content/uploads/updraftplus.zip) (Source: [Updraftplus Docs](https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/)
     
-    If you have enough licenses, it's more comfortable to have updraftplus premium activated on all sites (remote / local).
+    Activate updraftplus premium by logging in with your updraftplus account
+    
+    ![Screenshot updraftplus dashboard - add credentials in Connect with updraftplus account](screenshots/screenshot_updraftplus_connect.png)
+    
+    and click "activate it on this site" as well:
+    
+    ![Screenshot updraftplus dashboard - premium license activated](screenshots/screenshot_updraftplus_premium_activate.png)
 
-2. **Create backup on remote site**
+2. **Pull remote site backup and restore (migrate) it**
 
-    *If you have premium/WPCLI-addon installed on your remote/live site, you can skip this step.*
-
-    ![Screenshot updraftplus dashboard - Backup screen](screenshots/screenshot_updraftplus_backup_now.png)
-  
-    Just create a backup with "Backup now" in the Wordpress Dashboard of your live website.
-
-3. **Pull remote site backup and restore (migrate) it**
-
-    Now we can pull the backup from the live website to our local site. The ssh username and host is needed as well as the path where wordpress is installed on the remote webspace. This command will fetch the latest backup from remote to local.
-      
-    If your remote site has updraftplus WPCLI activated, this script also can start a fresh backup on your remote site:
+    Now we can pull the backup from the live website to our local site:
     
     ```shell
     ddev pull-wp sshusername@host.xyz /html/wordpress
     ```
     
-    (This command connects to the remote live website via SSH, rsync's the backup files to local DDEV, restores it with help of updraftplus Migrator and CLI. You need to provide SSH information and path to wordpress installation on remote server.)
+    *This command connects to the remote live website via SSH, creates a backup via updraftplus CLI, rsyncs the backup files to local DDEV, restores it with help of updraftplus Migrator and CLI feature.*
+    
+    Example command for [Uberspace webspace](https://uberspace.de/en/):
+    
+    ```shell
+    ddev pull-wp UBERSPACE_USER@draco.uberspace.de /var/www/virtual/UBERSPACE_USER/html/
+    ```
+    
+    You can find out the wordpress path of your live site via
+    
+    1. Login to your site via ssh
+    2. Change directory to wordpress folder
+    3. Check if WPCLI is available with "wp core version"
+    4. Get the wordpress folder path with "pwd" command (print working directory)
 
 4. **Open and test updates locally**
 
     Open `https://pull-wp.ddev.site` to see the migrated site which now runs on your local machine.
     
-    The local login credentials are replaced by the credentials of the live website. You can now test a bigger wordpress update in peace, without breaking the live website.
+    The local login credentials are replaced by the credentials of the live website. You can now test a bigger wordpress update in peace - without breaking the live website.
      
     A good practice could be to use tools like Disable Emails, WP Debug Bar, etc. Activate debug log and install plugin Debug bar e.g.:
     
@@ -109,6 +118,8 @@ In this local instance you can safely experiment with your wordpress site, e.g. 
     ddev exec wp config set WP_DEBUG_DISPLAY false --raw --path=wordpress
     ddev exec wp plugin install debug-bar --activate --path=wordpress
     ```
+    
+    Or use the [WP Debugging](https://wordpress.org/plugins/wp-debugging/) plugin.
 
 5. **Run updates on live website**
 
