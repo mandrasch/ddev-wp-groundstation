@@ -77,7 +77,7 @@ In this local instance you can safely experiment with your wordpress site, e.g. 
     
     ![Screenshot updraftplus dashboard - add credentials in Connect with updraftplus account](screenshots/screenshot_updraftplus_connect.png)
     
-    and click "activate it on this site" as well:
+    and click "activate it on this site":
     
     ![Screenshot updraftplus dashboard - premium license activated](screenshots/screenshot_updraftplus_premium_activate.png)
 
