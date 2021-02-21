@@ -45,7 +45,7 @@ ddev launch
     ddev install-wp
     ```
 
-    *This command will automatically install wordpress and activate the .zip file need to activate updraftplus for addons, see: https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/.* 
+    *This command will automatically install wordpress and download and activate the .zip file version of updraftplus needed to activate the premium license, see: https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/.* 
       
     At the end of the installation, you will be prompted for an admin password.
 
