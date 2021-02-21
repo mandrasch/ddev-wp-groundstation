@@ -9,7 +9,7 @@ Scared a wordpress update will break your old site? Why not test it locally befo
 
 ## Description
 
-This project contains [custom DDEV commands](https://ddev.readthedocs.io/en/stable/users/extend/custom-commands/) for pulling a live website to your local machine with just a single command. This is possible with the help of the CLI and site migration feature of [Updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/)($). 
+This project contains [custom DDEV commands](https://ddev.readthedocs.io/en/stable/users/extend/custom-commands/) for pulling a live website to your local machine with just a single command. This is possible with the help of the WPCLI and site migration feature of [Updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/)($). 
 
 ```shell
 # setup 
