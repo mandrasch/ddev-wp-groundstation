@@ -1,28 +1,53 @@
 # DDEV pull-wp
+Scared a wordpress update will break your old site? Why not test it locally beforehand?
 
 ⚠️ Status: Work in progress, use at own risk 👷‍♀️⚠️
 
-Scared a wordpress update will break your old site? Want to play around with your wordpress site locally? DDEV pull-wp contains DDEV commands for pulling a live website to your local machine with just a single command (at least, this is the goal ;-)).
+## 🎥 Demo (Screencast)
 
+**[https://www.youtube.com/watch?v=9V9DmjIlrbI](https://www.youtube.com/watch?v=9V9DmjIlrbI)**
+
+## Description
+
+This project contains [custom DDEV commands](https://ddev.readthedocs.io/en/stable/users/extend/custom-commands/) for pulling a live website to your local machine with just a single command. This is possible with the help of the WPCLI and site migration feature of [Updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/)($).
+
+```shell
+# setup
+git clone https://github.com/programmieraffe/ddev-pull-wp.git
+cd ddev-pull-wp/
+ddev install-wp
+# activate updraftplus premium on local (see setup guide)
+ddev create-local-backup
+
+# pull a live website to local DDEV:
+ddev pull-wp ssh_username@ssh_host.xyz /path/to/wordpress/on/remote
+
+# have fun
+ddev launch
+```
+
+*For technical details of the implementation see [".ddev/commands/web"](https://github.com/programmieraffe/ddev-pull-wp/tree/main/.ddev/commands/web).*
 
 ## Prerequisites
 
 - [DDEV](https://www.ddev.com/ddev-local/) installed on your local machine
-- local site: [updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/) license <br> (or [updraftplus CLI](https://updraftplus.com/shop/wp-cli/) and [updraftplus Migrator](https://updraftplus.com/migrator/) single license)
-- remote/live site: free or premium version of updraftplus (see [Usage scenarios](#usage-scenarios))
-- SSH and rsync on remote server/webspace (live website)
+- [updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/) license
+- SSH access, WPCLI and rsync available on webspace of the live website
+
 
 ## Install / Setup
 
 1. **Clone this repository, open folder in terminal**
 
-2. **Install fresh wordpress locally (installs updraft automatically)**
+2. **Install fresh wordpress locally**
 
     ```shell
     ddev install-wp
     ```
 
-    (This command will automatically install wordpress and activate the .zip file need to activate updraftplus for addons, see: https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/]. At the end of the installation, you will be prompted for an admin password.)
+    *This command will automatically install wordpress and download and activate the .zip file version of updraftplus needed to activate the premium license, see: https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/.*
+
+    At the end of the installation, you will be prompted for an admin password.
 
 3. **Login into local wordpress**
 
@@ -30,25 +55,23 @@ Scared a wordpress update will break your old site? Want to play around with you
 
     [Use `ddev launch` to open the local site directly in browser]
 
-4. **Activate updraftplus premium / CLI and Migrator add-on ($)**
+4. **Login to updraftplus premium  ($)**
 
-    Activate updraftplus premium license or paid license for updraftplus CLI and Migrator in the dashboard:
+    Activate updraftplus premium license with your credentials. To do that, navigate to Wordpress Dashboard > Settings > updraftplus:
 
     https://pull-wp.ddev.site/wp-admin/options-general.php?page=updraftplus
 
-    ![Screenshot updraftplus dashboard - add credentials in Connect with updraftplus account](screenshot_updraftplus_connect.png)
+    ![Screenshot updraftplus dashboard - add credentials in Connect with updraftplus account](screenshots/screenshot_updraftplus_connect.png)
 
-    ![Screenshot updraftplus dashboard - premium license activated](screenshot_updraftplus_premium_activated.png)
+5. **Activate "all addons" to enable WPCLI and Migrator feature**
 
-    *or*
+    Make sure to click "activate it on this site":
 
-    ![Screenshot updraftplus dashboard - CLI and Migrator addon successful activated](screenshot_updraftplus_activated.png)    
+    ![Screenshot updraftplus dashboard - premium license activated](screenshots/screenshot_updraftplus_premium_activate.png)
 
-    (See https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/ for more details)
+6. **Create a local backup**
 
-5. **Create a backup point locally to enable easier resets**
-
-    If the updraftplus license is activated locally, we create a restore point (this will be useful later):
+    We create a local backup (this will be useful later) after successful activation of updraftplus premium:
 
     ```shell
     ddev create-local-backup
@@ -58,37 +81,46 @@ Scared a wordpress update will break your old site? Want to play around with you
 
 ## Pull a remote site
 
-1. **Install updraftplus (free/premium) on remote wordpress site**
+1. **Install updraftplus premium on remote wordpress site**
 
-    On the remote site it's best to use the updraftplus .zip file as well from here: https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/ - but you don't have to activate/connect anything. Free version is enough.
+    Install updraftplus with this [.zip file](https://updraftplus.com/wp-content/uploads/updraftplus.zip) (Source: [Updraftplus Docs](https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/))
 
-    If you have enough licenses, it's more comfortable to have updraftplus premium activated on all sites (remote / local).
+    Activate updraftplus premium by logging in with your updraftplus account
 
-2. **Create backup on remote site**
+    ![Screenshot updraftplus dashboard - add credentials in Connect with updraftplus account](screenshots/screenshot_updraftplus_connect.png)
 
-    *If you have premium/WPCLI-addon installed on your remote/live site, you can skip this step.*
+    and click "activate it on this site":
 
-    ![Screenshot updraftplus dashboard - Backup screen](screenshot_updraftplus_backup_now.png)
+    ![Screenshot updraftplus dashboard - premium license activated](screenshots/screenshot_updraftplus_premium_activate.png)
 
-    Just create a backup with "Backup now" in the Wordpress Dashboard of your live website.
+2. **Pull remote site backup and restore (migrate) it**
 
-3. **Pull remote site backup and restore (migrate) it**
-
-    Now we can pull the backup from the live website to our local site. The ssh username and host is needed as well as the path where wordpress is installed on the remote webspace. This command will fetch the latest backup from remote to local.
-
-    If your remote site has updraftplus WPCLI activated, this script also can start a fresh backup on your remote site:
+    Now we can pull the backup from the live website to our local site:
 
     ```shell
-    ddev pull-wp sshusername@host.xyz /html/wordpress
+    ddev pull-wp ssh_username@ssh_host.xyz /path/to/wordpress/on/remote
     ```
 
-    (This command connects to the remote live website via SSH, rsync's the backup files to local DDEV, restores it with help of updraftplus Migrator and CLI. You need to provide SSH information and path to wordpress installation on remote server.)
+    *This command connects to the remote live website via SSH, creates a backup via updraftplus CLI, rsyncs the backup files to local DDEV, restores it with help of updraftplus Migrator and CLI feature.*
+
+    Example command for [Uberspace webspace](https://uberspace.de/en/):
+
+    ```shell
+    ddev pull-wp UBERSPACE_USER@draco.uberspace.de /var/www/virtual/UBERSPACE_USER/html/
+    ```
+
+    You can find out the wordpress path of your live site via
+
+    1. Login to your site via ssh
+    2. Change directory to wordpress folder
+    3. Check if WPCLI is available with "wp core version"
+    4. Get the wordpress folder path with "pwd" command (print working directory)
 
 4. **Open and test updates locally**
 
     Open `https://pull-wp.ddev.site` to see the migrated site which now runs on your local machine.
 
-    The local login credentials are replaced by the credentials of the live website. You can now test a bigger wordpress update in peace, without breaking the live website.
+    The local login credentials are replaced by the credentials of the live website. You can now test a bigger wordpress update in peace - without breaking the live website.
 
     A good practice could be to use tools like Disable Emails, WP Debug Bar, etc. Activate debug log and install plugin Debug bar e.g.:
 
@@ -98,6 +130,8 @@ Scared a wordpress update will break your old site? Want to play around with you
     ddev exec wp config set WP_DEBUG_DISPLAY false --raw --path=wordpress
     ddev exec wp plugin install debug-bar --activate --path=wordpress
     ```
+
+    Or use the [WP Debugging](https://wordpress.org/plugins/wp-debugging/) plugin.
 
 5. **Run updates on live website**
 
@@ -134,18 +168,6 @@ https://docs.wppusher.com/article/17-setting-up-a-plugin-or-theme-on-github
     (This will not delete your local restore point from installation)
 
 3. **Start with ddev pull-wp again**
-
-## Usage scenarios
-
-1. updraftplus CLI local <-> free updraftplus on remote site (🤖 <-> 📁)
-
-    In this mode you create the backup on your remote site with the free updraftplus using the WP dashboard. Afterwards you can sync it to your local machine via the local WPCLI addon and Migrator addon (both $) of updraftplus activated on your local machine.
-
-2. updraftplus CLI local <-> updraftplus CLI remote (🤖 <-> 🤖)
-
-    You'll need activated premium (or addon licenses) on local and remote machine(s) for updraftplus.
-
-    In CLI<->CLI (commandline-to-commandline) mode you can also create backups on remote site from your local machine, no need to visit the WP dashboard of your remote site. You can also get the <nonce>-identifier for the latest backup, which saves time syncing.
 
 ## Advanced
 
