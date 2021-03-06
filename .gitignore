@@ -17,8 +17,8 @@
 !/.ddev/commands/web/setup-symlinks
 !/.ddev/commands/web/create-local-backup
 
-# Ignore ddev wordpress
-/wordpress/*
+# Ignore ddev wordpress docroot
+/ddev-wordpress/*
 
 # Ignore nonce file from install
 fresh_install_nonce.txt
