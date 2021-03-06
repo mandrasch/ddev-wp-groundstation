@@ -106,10 +106,11 @@ ddev launch
     Example command for [Uberspace webspace](https://uberspace.de/en/):
 
     ```shell
-    ddev pull-wp UBERSPACE_USER@draco.uberspace.de /var/www/virtual/UBERSPACE_USER/html/
-    ```
+    ddev pull-wp UBERSPACE_USER@draco.uberspace.de /var/www/virtual/UBERSPACE_USER/html/#
     
+    # Real live example:
     ddev pull-wp wpdemo@draco.uberspace. /var/www/virtual/wpdemo/html/
+    ```
 
     You can find out the wordpress path of your live site via
 
