@@ -15,11 +15,11 @@ if [ -z "$1" ]
     WP_LOCALE="${1}"
 fi
 
+# TODO: Use DDEV_DOCROOT variable?
 # We use a subdirectory in DDEV container, see "docroot" in .ddev/config.yaml
-mkdir -p /var/www/html/wordpress
-
-# Working directory
-cd /var/www/html/wordpress
+DDEV_WP_DIR=/var/www/html/wordpress
+mkdir -p "$DDEV_WP_DIR"
+cd "$DDEV_WP_DIR"
 
 echo "Installing fresh wordpress with ${WP_LOCALE} ..."
 wp core download --locale=${WP_LOCALE}
@@ -41,6 +41,14 @@ wget https://updraftplus.com/wp-content/uploads/updraftplus.zip
 echo "Installing and activating it..."
 wp plugin install updraftplus.zip --activate
 rm updraftplus.zip
+
+# Setup Symlinks, run another DDEV command
+echo "Setting up symlinks ..."
+# https://unix.stackexchange.com/a/216915
+CURRENT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+source "$CURRENT_DIR/setup-symlinks"
+# Important - change back directory afterwards:
+cd "$DDEV_WP_DIR"
 
 wp user update admin --prompt=user_pass
 

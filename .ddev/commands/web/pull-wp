@@ -7,9 +7,11 @@
 
 # TODO: add args for UPDRAFT_CLI_ACTIVATED & CREATE_BACKUP_ON_REMOTE
 
-# We use a subdirectory, see "docroot" in .ddev/config.yaml
-# TODO: $DDEV_DOCROOT is empty, otherwise we could use it?
-cd /var/www/html/wordpress/
+# TODO: Use DDEV_DOCROOT variable?
+# We use a subdirectory in DDEV container, see "docroot" in .ddev/config.yaml
+DDEV_WP_DIR=/var/www/html/wordpress
+mkdir -p "$DDEV_WP_DIR"
+cd "$DDEV_WP_DIR"
 
 # TODO: Configure if remote website has premium/WPCLI addon activated or not - prompt user? Config file?
 
@@ -100,7 +102,7 @@ if [[ $UPDRAFT_CLI_ACTIVATED == "yes" ]]
         echo "Please provide the SSH password (use SSH keys to avoid this prompt):"
         UPDRAFT_TERMINAL_OUTPUT=`ssh ${SSH_USER_HOST} wp updraftplus get_latest_full_backup --path=${SSH_WORDPRESS_PATH}`
     fi
-    
+
     # we strip identifier from string after last : character
     # (Output will be something like: Success: Latest full backup found identifier: a7cfeXXXXc281)
     UPDRAFT_NONCE=${UPDRAFT_TERMINAL_OUTPUT##*: }
@@ -108,7 +110,7 @@ if [[ $UPDRAFT_CLI_ACTIVATED == "yes" ]]
     echo "Updraft nonce on remote is ${UPDRAFT_NONCE}"
   # No updratfplus CLI on remote activated, just set it to empty string
   else
-    UPDRAFT_NONCE=""  
+    UPDRAFT_NONCE=""
 fi
 
 echo "Sync backup files from remote server to local DDEV (rsync) ..."
@@ -145,7 +147,7 @@ if [[ $UPDRAFT_NONCE == "" ]]
     # Output will be something like: Success: Latest full backup found identifier: a7cfeXXXXc281
     UPDRAFT_TERMINAL_OUTPUT_LOCAL=`wp updraftplus get_latest_full_backup`
     # we strip identifier after last : character
-    UPDRAFT_NONCE=${UPDRAFT_TERMINAL_OUTPUT_LOCAL##*: }    
+    UPDRAFT_NONCE=${UPDRAFT_TERMINAL_OUTPUT_LOCAL##*: }
 fi
 
 # Restore this site, important: --migration=true (replaces URLs in database)
@@ -156,6 +158,14 @@ wp updraftplus restore $UPDRAFT_NONCE --migration=true
 
 echo "Delete -old/-directories created by updraftplus"
 find . -type d -name '*-old' -exec rm -r {} +
+
+# Setup Symlinks, run another DDEV command
+echo "Setting up symlinks ..."
+# https://unix.stackexchange.com/a/216915
+CURRENT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+source "$CURRENT_DIR/setup-symlinks"
+# Important - change back directory afterwards:
+cd "$DDEV_WP_DIR"
 
 echo "pull-wp ended, have fun testing locally! (and fight the climate emergency :))"
 echo "[You can always open your website with 'ddev launch' from commandline]"

@@ -13,10 +13,10 @@
 !/.ddev/commands/web/install-wp
 !/.ddev/commands/web/delete-backups
 !/.ddev/commands/web/reset-wp
-!/.ddev/commands/web/setup-symlink
+!/.ddev/commands/web/setup-symlinks
 !/.ddev/commands/web/create-local-backup
 
-# Ignore wordpress
+# Ignore ddev wordpress
 /wordpress/*
 
 # Ignore nonce file from install
@@ -79,4 +79,3 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
-

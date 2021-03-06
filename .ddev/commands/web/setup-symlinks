@@ -1,0 +1,44 @@
+#!/bin/bash
+
+## Description: Setup symlinks to temporary wordpress
+## Usage: setup-symlinks
+## Example: "ddev setup-symlinks"
+
+# This script removes theme or plugins folders migrated via updraftplus and sets up a symlink to our tracked plugins and themes
+
+# DON'T(!) use docroot of ddev here, this script needs to run in ./ root of git-project!
+cd /var/www/html/
+
+echo "### Setting up symlinks for ddev (removing migrated folders for themes and plugins) ###"
+
+# TODO: use DDEV_DOCROOT?
+WP_DOCROOT="wordpress"
+
+# the folders where we look for plugins or themes to symlink into our ddev wordpress
+declare -a baseFolders=( "tracked-themes/" "tracked-plugins" )
+
+for currentBaseFolder in "${baseFolders[@]}"; do
+	echo "Looking for git-tracked folders in: $currentBaseFolder ..."
+	for trackedThemeOrPluginDir in $currentBaseFolder/*; do
+		#echo "Found $trackedThemeOrPluginDir";
+	    if [ -d "$trackedThemeOrPluginDir" ]; then
+	        # $f is a directory
+	        echo "Found ${trackedThemeOrPluginDir} ..."
+	        trackedThemeOrPluginDirBasename=`basename $trackedThemeOrPluginDir`
+	        echo "Basename is: ${trackedThemeOrPluginDirBasename}"
+
+					# TODO: check for whitespaces or something?
+	        themeOrPluginDirInDdevWp="$WP_DOCROOT"/"$currentBaseFolder"/"$trackedThemeOrPluginDirBasename"
+					echo "Check if theme/plugin was imported to $themeOrPluginDirInDdevWp ..."
+	        if [ -d "$themeOrPluginDirInDdevWp" ]; then
+	          # Take action if dir exists and if it is really a directory
+	          echo "Removing previously imported directory $themeOrPluginDirInDdevWp ..."
+	          rm -rv "$themeOrPluginDirInDdevWp"
+	        fi
+	        # TODO: error handling
+
+	        echo "Setting up symlink from ${trackedThemeOrPluginDir} to ${themeOrPluginDirInDdevWp} .."
+	        ln -sfv "$trackedThemeOrPluginDir" "$themeOrPluginDirInDdevWp"
+	    fi
+	done #eo parse through directory
+done # eo loop through defined directory
