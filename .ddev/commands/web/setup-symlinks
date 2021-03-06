@@ -38,8 +38,8 @@ for currentBaseFolder in "${baseFolders[@]}"; do
 	        fi
 	        # TODO: error handling
 
-	        echo "Setting up symlink from ${trackedThemeOrPluginDir} to ${themeOrPluginDirInDdevWp} .."
-	        ln -sfv "$trackedThemeOrPluginDir" "$themeOrPluginDirInDdevWp"
+	        echo "Setting up symlink from /var/www/html/${trackedThemeOrPluginDir} to /var/www/html/${themeOrPluginDirInDdevWp} .."
+	        ln -sfv /var/www/html/"$trackedThemeOrPluginDir" /var/www/html/"$themeOrPluginDirInDdevWp"
 	    fi
 	done #eo parse through directory
 done # eo loop through defined directory
