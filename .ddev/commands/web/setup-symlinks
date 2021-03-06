@@ -12,10 +12,11 @@ cd /var/www/html/
 echo "### Setting up symlinks for ddev (removing migrated folders for themes and plugins) ###"
 
 # TODO: use DDEV_DOCROOT?
-WP_DOCROOT="wordpress"
+WP_DOCROOT="ddev-wordpress"
 
 # the folders where we look for plugins or themes to symlink into our ddev wordpress
-declare -a baseFolders=( "tracked-themes/" "tracked-plugins" )
+# without trailing slash
+declare -a baseFolders=( "wp-content/themes" "wp-content/plugins" "wp-content/mu-plugins" )
 
 for currentBaseFolder in "${baseFolders[@]}"; do
 	echo "Looking for git-tracked folders in: $currentBaseFolder ..."

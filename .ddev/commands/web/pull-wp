@@ -10,7 +10,7 @@
 
 # TODO: Use DDEV_DOCROOT variable?
 # We use a subdirectory in DDEV container, see "docroot" in .ddev/config.yaml
-DDEV_WP_DIR=/var/www/html/wordpress
+DDEV_WP_DIR=/var/www/html/ddev-wordpress
 mkdir -p "$DDEV_WP_DIR"
 cd "$DDEV_WP_DIR"
 

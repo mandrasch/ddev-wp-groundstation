@@ -4,7 +4,7 @@
 ## Usage: reset-wp
 ## Example: "ddev reset-wp"
 
-cd wordpress/
+cd ddev-wordpress/
 
 echo "Reading nonce information from file (maybe) created at install-wp ..."
 NONCE_FILE=/var/www/html/fresh_install_nonce.txt

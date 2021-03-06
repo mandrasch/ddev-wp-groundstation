@@ -8,7 +8,7 @@
 
 # TODO: Prompt user if he/she really wants to delete the backup files?
 
-UPDRAFT_FOLDER="/var/www/html/wordpress/wp-content/updraft"
+UPDRAFT_FOLDER="/var/www/html/ddev-wordpress/wp-content/updraft"
 
 if [ ! -d $UPDRAFT_FOLDER ]
 then 
