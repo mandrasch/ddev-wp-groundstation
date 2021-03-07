@@ -47,14 +47,20 @@ Have fun!
 
 ## Use case 1: Developing a child theme
 
-### Set it up locally
+🎥  [https://www.youtube.com/watch?v=4_Qa2tCDrbc](https://www.youtube.com/watch?v=4_Qa2tCDrbc)
 
-1. Create your childtheme folder in `wp-content/themes`
-2. Run `ddev setup-symlinks`, this will create a symbolic link to `/ddev-wordpress/wp-content/themes`-folder
+1. **Create your childtheme folder in `wp-content/themes`**
 
-### Deploying a child theme to the live site
+    See `wp-content/themes/`, there is already a child theme as an example.
+
+2. **Run `ddev setup-symlinks`** 
+    
+    This will create a symbolic link into the `/ddev-wordpress/wp-content/themes`-folder.
+
+**Optional: Deployment via WPPusher **
 
 1. Install [wppusher](https://docs.wppusher.com/) on your live site
+
 2. Set up the child theme and change the subdirectory value to `wp-content/themes/your-childtheme`
 
 ## Use case 2: Pulling a live website
