@@ -47,7 +47,7 @@ Have fun!
 
 ## Use case 1: Developing a child theme
 
-🎥  [https://www.youtube.com/watch?v=4_Qa2tCDrbc](https://www.youtube.com/watch?v=4_Qa2tCDrbc)
+Demonstration: [https://www.youtube.com/watch?v=4_Qa2tCDrbc](https://www.youtube.com/watch?v=4_Qa2tCDrbc)
 
 1. **Create your childtheme folder in `wp-content/themes`**
 
