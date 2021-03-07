@@ -27,7 +27,7 @@ This project contains custom DDEV commands such as `ddev install-wp`, `ddev setu
     cd ddev-wp-groundstation
     ```
     
-2. **Change project in `.ddev/config.yaml`**
+2. **Change project name in `.ddev/config.yaml`**
 
     ```shell
     name: my-example-site
