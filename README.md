@@ -21,50 +21,11 @@ Have fun!
 
 This project contains custom DDEV commands such as `ddev install-wp`, `ddev setup-symlinks` and `ddev pull-wp`.
 
-1. Click "Use this template"
-
-### 1. Developing a child theme
-
-1. `ddev install-wp`
-2. Create your childtheme folder in `wp-content/themes`
-3. Run `ddev setup-symlinks`, this will create a symbolic link to `/ddev-wordpress/wp-content/themes`-folder
-
-#### Deploying a child theme to the live site
-
-1. Install [wppusher](https://docs.wppusher.com/) on your live site
-2. Set up the child theme and select subdirectory `wp-content/themes/your-childtheme`
-
-### 2. Pulling a live website (updraftplus $)
-
-This project contains [custom DDEV commands](https://ddev.readthedocs.io/en/stable/users/extend/custom-commands/) for pulling a live website to your local machine with just a single command. This is possible with the help of the WPCLI and site migration feature of [Updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/)($).
-
-```shell
-# checkout locally (you can use Github Desktop as well)
-git clone https://github.com/programmieraffe/ddev-pull-wp.git
-cd ddev-pull-wp/
-ddev install-wp
-# activate updraftplus premium on local (see setup guide)
-ddev create-local-backup
-
-# pull a live website to local DDEV:
-ddev pull-wp ssh_username@ssh_host.xyz /path/to/wordpress/on/remote
-
-# have fun
-ddev launch
-```
-
-*For technical details of the implementation see [".ddev/commands/web"](https://github.com/programmieraffe/ddev-pull-wp/tree/main/.ddev/commands/web).*
-
-## Prerequisites
-
-- [DDEV](https://www.ddev.com/ddev-local/) installed on your local machine
-- [updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/) license
-- SSH access, WPCLI and rsync available on webspace of the live website
-
-
-## Install / Setup
-
 1. **Clone this repository, open folder in terminal**
+
+    ```shell
+    cd ddev-wp-groundstation
+    ```
 
 2. **Install fresh wordpress locally**
 
@@ -72,17 +33,59 @@ ddev launch
     ddev install-wp
     ```
 
-    *This command will automatically install wordpress and download and activate the .zip file version of updraftplus needed to activate the premium license, see: https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/.*
+### 1. Developing a child theme
 
-    At the end of the installation, you will be prompted for an admin password.
+1. Create your childtheme folder in `wp-content/themes`
+2. Run `ddev setup-symlinks`, this will create a symbolic link to `/ddev-wordpress/wp-content/themes`-folder
 
-3. **Login into local wordpress**
+#### Deploying a child theme to the live site
+
+1. Install [wppusher](https://docs.wppusher.com/) on your live site
+2. Set up the child theme and change the subdirectory value to `wp-content/themes/your-childtheme`
+
+### 2. Pulling a live website (requires updraftplus $)
+
+#### Prerequisites
+
+This command is possible with the help of the WPCLI and site migration feature of [Updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/)($).
+
+- [DDEV](https://www.ddev.com/ddev-local/) installed on your local machine
+- [updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/) license
+- SSH access, WPCLI and rsync available on webspace of the live website
+
+#### Pull
+
+1. Activate updraftplus premium on live and local wordpress
+
+2. Pull the live site to your local wp:
+
+    ```shell
+    # pull a live website to local DDEV:
+    ddev pull-wp ssh_username@ssh_host.xyz /path/to/wordpress/on/remote
+    ```
+    
+    Example command for [Uberspace webspace](https://uberspace.de/en/):
+
+    ```shell
+    ddev pull-wp UBERSPACE_USER@draco.uberspace.de /var/www/virtual/UBERSPACE_USER/html/#
+    
+    # Real live example:
+    ddev pull-wp wpdemo@draco.uberspace.de /var/www/virtual/wpdemo/html/
+    ```
+
+If you want to restore the fresh state of wordpress after migration, you can run `ddev create-local-backup` before pulling.
+
+*For technical details of the implementation see [".ddev/commands/web"](https://github.com/programmieraffe/ddev-pull-wp/tree/main/.ddev/commands/web).*
+
+#### Detailed tutorial
+
+1. **Login into local wordpress**
 
     Login to https://pull-wp.ddev.site/wp-admin/ with user "admin" and your chosen password.
 
     [Use `ddev launch` to open the local site directly in browser]
 
-4. **Login to updraftplus premium  ($)**
+2. **Login to updraftplus premium  ($)**
 
     Activate updraftplus premium license with your credentials. To do that, navigate to Wordpress Dashboard > Settings > updraftplus:
 
@@ -90,13 +93,13 @@ ddev launch
 
     ![Screenshot updraftplus dashboard - add credentials in Connect with updraftplus account](screenshots/screenshot_updraftplus_connect.png)
 
-5. **Activate "all addons" to enable WPCLI and Migrator feature**
+3. **Activate "all addons" to enable WPCLI and Migrator feature**
 
     Make sure to click "activate it on this site":
 
     ![Screenshot updraftplus dashboard - premium license activated](screenshots/screenshot_updraftplus_premium_activate.png)
 
-6. **Create a local backup**
+4. **Optional: Create a local backup**
 
     We create a local backup (this will be useful later) after successful activation of updraftplus premium:
 
@@ -104,11 +107,7 @@ ddev launch
     ddev create-local-backup
     ```
 
-    That's it, all setup.
-
-## Pull a remote site
-
-1. **Install updraftplus premium on remote wordpress site**
+5. **Install updraftplus premium on remote wordpress site**
 
     Install updraftplus with this [.zip file](https://updraftplus.com/wp-content/uploads/updraftplus.zip) (Source: [Updraftplus Docs](https://updraftplus.com/support/installing-updraftplus-premium-your-add-on/))
 
@@ -120,7 +119,7 @@ ddev launch
 
     ![Screenshot updraftplus dashboard - premium license activated](screenshots/screenshot_updraftplus_premium_activate.png)
 
-2. **Pull remote site backup and restore (migrate) it**
+6. **Pull remote site backup and restore (migrate) it**
 
     Now we can pull the backup from the live website to our local site:
 
@@ -130,15 +129,6 @@ ddev launch
 
     *This command connects to the remote live website via SSH, creates a backup via updraftplus CLI, rsyncs the backup files to local DDEV, restores it with help of updraftplus Migrator and CLI feature.*
 
-    Example command for [Uberspace webspace](https://uberspace.de/en/):
-
-    ```shell
-    ddev pull-wp UBERSPACE_USER@draco.uberspace.de /var/www/virtual/UBERSPACE_USER/html/#
-    
-    # Real live example:
-    ddev pull-wp wpdemo@draco.uberspace.de /var/www/virtual/wpdemo/html/
-    ```
-
     You can find out the wordpress path of your live site via
 
     1. Login to your site via ssh
@@ -146,7 +136,7 @@ ddev launch
     3. Check if WPCLI is available with "wp core version"
     4. Get the wordpress folder path with "pwd" command (print working directory)
 
-4. **Open and test updates locally**
+7. **Open and test updates locally**
 
     Open `https://pull-wp.ddev.site` to see the migrated site which now runs on your local machine.
 
@@ -163,16 +153,6 @@ ddev launch
 
     Or use the [WP Debugging](https://wordpress.org/plugins/wp-debugging/) plugin.
 
-5. **Run updates on live website**
-
-    If the update works locally, you can just run updates on your live site as well.
-
-## Setup git-tracked theme or plugin with WPpusher / Github Updater
-
-TODO: Add screenshots and better description
-
-Add theme or plugin with wppusher, use subdirectory "tracked-themes/awesome-twentytwentyone-child":
-https://docs.wppusher.com/article/17-setting-up-a-plugin-or-theme-on-github
 
 ## Reset
 
