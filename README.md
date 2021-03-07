@@ -12,14 +12,14 @@
 
 ## 🎥 Demo (Screencast)
 
-- **Developing a child theme (coming soon)**
-- **Pulling a website [https://www.youtube.com/watch?v=9V9DmjIlrbI](https://www.youtube.com/watch?v=9V9DmjIlrbI)**
+1. **Developing and deploying a child theme (coming soon)**
+2. **Pulling a website [https://www.youtube.com/watch?v=9V9DmjIlrbI](https://www.youtube.com/watch?v=9V9DmjIlrbI)**
 
 ## How to use this starter
 
 This project contains [custom DDEV commands](https://ddev.readthedocs.io/en/stable/users/extend/custom-commands/) which help working with wordpress, git and DDEV.
 
-### Developing a child theme
+### 1. Developing a child theme
 
 1. `ddev install-wp`
 2. Create your folder in `wp-content/themes`
@@ -30,7 +30,7 @@ This project contains [custom DDEV commands](https://ddev.readthedocs.io/en/stab
 1. Install [wppusher](https://docs.wppusher.com/) on your live site
 2. Set up the child theme and select subdirectory `wp-content/themes/your-childtheme`
 
-### Pulling a live website (updraftplus)
+### 2. Pulling a live website (updraftplus)
 
 This project contains [custom DDEV commands](https://ddev.readthedocs.io/en/stable/users/extend/custom-commands/) for pulling a live website to your local machine with just a single command. This is possible with the help of the WPCLI and site migration feature of [Updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/)($).
 
