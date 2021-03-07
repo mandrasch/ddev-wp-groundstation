@@ -17,7 +17,7 @@ Have fun!
 1. **Developing and deploying a child theme (coming soon)**
 2. **Pulling a website [https://www.youtube.com/watch?v=9V9DmjIlrbI](https://www.youtube.com/watch?v=9V9DmjIlrbI)**
 
-## How to use this starter
+## Setup
 
 This project contains custom DDEV commands such as `ddev install-wp`, `ddev setup-symlinks` and `ddev pull-wp`.
 
@@ -39,19 +39,21 @@ This project contains custom DDEV commands such as `ddev install-wp`, `ddev setu
     ddev install-wp
     ```
 
-### 1. Developing a child theme
+## Use case 1: Developing a child theme
+
+### Set it up locally
 
 1. Create your childtheme folder in `wp-content/themes`
 2. Run `ddev setup-symlinks`, this will create a symbolic link to `/ddev-wordpress/wp-content/themes`-folder
 
-#### Deploying a child theme to the live site
+### Deploying a child theme to the live site
 
 1. Install [wppusher](https://docs.wppusher.com/) on your live site
 2. Set up the child theme and change the subdirectory value to `wp-content/themes/your-childtheme`
 
-### 2. Pulling a live website (requires updraftplus $)
+## Use case 2: Pulling a live website (requires updraftplus $)
 
-#### Prerequisites
+### Prerequisites
 
 This command is possible with the help of the WPCLI and site migration feature of [Updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/)($).
 
@@ -59,7 +61,7 @@ This command is possible with the help of the WPCLI and site migration feature o
 - [updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/) license
 - SSH access, WPCLI and rsync available on webspace of the live website
 
-#### Pull
+### Pull
 
 1. **Activate updraftplus premium on live and local wordpress (see details below)**
 
