@@ -18,7 +18,7 @@ Have fun!
 
 ## 🎥 Demo (Screencast)
 
-1. **Developing and deploying a child theme (coming soon)**
+1. **Developing and deploying a child theme [https://www.youtube.com/watch?v=4_Qa2tCDrbc](https://www.youtube.com/watch?v=4_Qa2tCDrbc&t=205s)**
 2. **Pulling a website [https://www.youtube.com/watch?v=9V9DmjIlrbI](https://www.youtube.com/watch?v=9V9DmjIlrbI)**
 
 ## Setup
