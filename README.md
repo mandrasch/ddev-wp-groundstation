@@ -1,6 +1,8 @@
+⚠️ Status: Work in progress, use at own risk 👷‍♀️⚠️
+
 # DDEV WP Groundstation 🛰️
 
-⚠️ Status: Work in progress, use at own risk 👷‍♀️⚠️
+*Your live sites circling in the web like satellites, groundstation is your safe homebase for wordpress development in DDEV.*
 
 ## Description
 
