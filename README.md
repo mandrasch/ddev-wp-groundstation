@@ -21,6 +21,8 @@ Have fun!
 
 This project contains custom DDEV commands such as `ddev install-wp`, `ddev setup-symlinks` and `ddev pull-wp`.
 
+1. Click "Use this template"
+
 ### 1. Developing a child theme
 
 1. `ddev install-wp`
@@ -37,7 +39,7 @@ This project contains custom DDEV commands such as `ddev install-wp`, `ddev setu
 This project contains [custom DDEV commands](https://ddev.readthedocs.io/en/stable/users/extend/custom-commands/) for pulling a live website to your local machine with just a single command. This is possible with the help of the WPCLI and site migration feature of [Updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/)($).
 
 ```shell
-# setup
+# checkout locally (you can use Github Desktop as well)
 git clone https://github.com/programmieraffe/ddev-pull-wp.git
 cd ddev-pull-wp/
 ddev install-wp
