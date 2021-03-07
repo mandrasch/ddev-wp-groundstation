@@ -19,7 +19,7 @@ Have fun!
 
 ## How to use this starter
 
-This project contains [custom DDEV commands](https://ddev.readthedocs.io/en/stable/users/extend/custom-commands/) which help working with wordpress, git and DDEV.
+This project contains custom DDEV commands such as `ddev install-wp`, `ddev setup-symlinks` and `ddev pull-wp`.
 
 ### 1. Developing a child theme
 
