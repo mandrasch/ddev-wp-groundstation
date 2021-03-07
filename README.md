@@ -8,9 +8,9 @@
 - Scared a wordpress update will break your old site?
 - Looking for a simple workflow to git-control the child theme of a site?
 
-**DDEV WP Groundstation provides custom commands to empower you to work professionally with Wordpress, git an DDEV.**
+**DDEV WP Groundstation provides custom commands to empower you to work professionally with Wordpress, git and [DDEV-local](https://ddev.readthedocs.io/en/stable/).**
 
-**Why not just use DDEVs built-in wordpress support?** *DDEV is a great toolbox, but it implements Wordpress with the [roots/bedrock-Boilerplate](https://ddev.readthedocs.io/en/stable/users/cli-usage/#wordpress-quickstart) (composer). This starter works without composer since composer is not officially supported by Wordpress Core.* 
+Why not just use DDEVs built-in wordpress support? *DDEV is a great toolbox, but it implements Wordpress with the [roots/bedrock-Boilerplate](https://ddev.readthedocs.io/en/stable/users/cli-usage/#wordpress-quickstart) (composer). This starter works without composer since composer is not officially supported by Wordpress Core.* 
 
 ## 🎥 Demo (Screencast)
 
