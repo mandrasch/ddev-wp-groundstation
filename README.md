@@ -24,7 +24,7 @@ This project contains [custom DDEV commands](https://ddev.readthedocs.io/en/stab
 ### 1. Developing a child theme
 
 1. `ddev install-wp`
-2. Create your folder in `wp-content/themes`
+2. Create your childtheme folder in `wp-content/themes`
 3. Run `ddev setup-symlinks`, this will create a symbolic link to `/ddev-wordpress/wp-content/themes`-folder
 
 #### Deploying a child theme to the live site
