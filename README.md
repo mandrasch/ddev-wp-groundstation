@@ -2,7 +2,7 @@
 
 # DDEV WP Groundstation 🛰️
 
-*Your live sites circling the web like satellites, groundstation is your safe homebase for wordpress development in DDEV.*
+*While your live sites circling the web like satellites, groundstation is your safe homebase for wordpress development in DDEV.*
 
 ⚠️ Status: Work in progress, use at own risk 👷‍♀️⚠️
 
