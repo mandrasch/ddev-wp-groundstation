@@ -55,9 +55,9 @@ This command is possible with the help of the WPCLI and site migration feature o
 
 #### Pull
 
-1. Activate updraftplus premium on live and local wordpress
+1. **Activate updraftplus premium on live and local wordpress (see details below)**
 
-2. Pull the live site to your local wp:
+2. **Pull the live site to your local wp:**
 
     ```shell
     # pull a live website to local DDEV:
