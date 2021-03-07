@@ -2,7 +2,7 @@
 
 Starting a new child theme? Just run `ddev install-wp` and develop the child theme in wp-content/themes/-folder.
 
-Scared a wordpress update will break your old site? Why not test it locally beforehand with `ddev pull-wp`? 
+Scared a wordpress update will break your old site? Why not test it locally beforehand? 
  
 ⚠️ Status: Work in progress, use at own risk 👷‍♀️⚠️
 
