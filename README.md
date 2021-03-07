@@ -1,6 +1,6 @@
-# DDEV pull-wp
+# DDEV Wordpress 
 
-Starting a new child theme? Just run `ddev install-wp` and develop it in wp-content/themes/-folder!
+Starting a new child theme? Just run `ddev install-wp` and develop the child theme in wp-content/themes/-folder!
 
 Scared a wordpress update will break your old site? Why not test it locally beforehand with `ddev pull-wp`? 
  
@@ -8,9 +8,18 @@ Scared a wordpress update will break your old site? Why not test it locally befo
 
 ## 🎥 Demo (Screencast)
 
-**[https://www.youtube.com/watch?v=9V9DmjIlrbI](https://www.youtube.com/watch?v=9V9DmjIlrbI)**
+** Developing a child theme (coming soon) **
+** Pulling a website [https://www.youtube.com/watch?v=9V9DmjIlrbI](https://www.youtube.com/watch?v=9V9DmjIlrbI)**
 
-## Description
+## Developing a child theme
+
+(coming soon)
+
+### Deploying a child theme to the live site
+
+(coming soon)
+
+## Pulling a live website (updraftplus)
 
 This project contains [custom DDEV commands](https://ddev.readthedocs.io/en/stable/users/extend/custom-commands/) for pulling a live website to your local machine with just a single command. This is possible with the help of the WPCLI and site migration feature of [Updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/)($).
 
