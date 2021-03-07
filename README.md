@@ -21,11 +21,13 @@ Have fun!
 
 This project contains custom DDEV commands such as `ddev install-wp`, `ddev setup-symlinks` and `ddev pull-wp`.
 
-1. **Clone this repository, open folder in terminal**
+1. **"Use this template"**
 
-    ```shell
-    cd ddev-wp-groundstation
-    ```
+    Click "Use this template", setup your own repository.
+    
+2. **Clone it**
+
+     Clone the newly created repository to your local computer.
     
 2. **Change project name in `.ddev/config.yaml`**
 
@@ -33,9 +35,11 @@ This project contains custom DDEV commands such as `ddev install-wp`, `ddev setu
     name: my-example-site
     ```
 
-3. **Install fresh wordpress locally**
+3. **Install fresh wordpress**
 
     ```shell
+    cd your-newly-created-repository/
+    ddev start
     ddev install-wp
     ```
 
