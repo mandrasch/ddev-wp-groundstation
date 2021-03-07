@@ -6,7 +6,7 @@ Scared a wordpress update will break your old site? Why not test it locally befo
  
 ⚠️ Status: Work in progress, use at own risk 👷‍♀️⚠️
 
-*Why not use DDEVs built-in wordpress support?* DDEV is a great toolbox, but it implements Wordpress with the [roots/bedrock-Boilerplate](https://ddev.readthedocs.io/en/stable/users/cli-usage/#wordpress-quickstart) (composer). This starter works without composer since composer is not officially supported by Wordpress Core.  
+*Why not just use DDEVs built-in wordpress support?* DDEV is a great toolbox, but it implements Wordpress with the [roots/bedrock-Boilerplate](https://ddev.readthedocs.io/en/stable/users/cli-usage/#wordpress-quickstart) (composer). This starter works without composer since composer is not officially supported by Wordpress Core.  
 
 ## 🎥 Demo (Screencast)
 
