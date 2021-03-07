@@ -59,9 +59,11 @@ Demonstration: [https://www.youtube.com/watch?v=4_Qa2tCDrbc](https://www.youtube
 
 **Optional: Deployment via WPPusher **
 
-1. Install [wppusher](https://docs.wppusher.com/) on your live site
+1. **Install [wppusher](https://docs.wppusher.com/) on your live site**
 
-2. Set up the child theme and change the subdirectory value to `wp-content/themes/your-childtheme`
+2. **Set up the child theme and change the subdirectory value to `wp-content/themes/your-childtheme`**
+
+    See: https://docs.wppusher.com/article/17-setting-up-a-plugin-or-theme-on-github
 
 ## Use case 2: Pulling a live website
 
