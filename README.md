@@ -1,6 +1,6 @@
 # DDEV pull-wp
-Scared a wordpress update will break your old site? Why not test it locally beforehand?
-
+Scared a wordpress update will break your old site? Why not test it locally beforehand? Starting a new child theme? Just run "ddev install-wp".
+ 
 ⚠️ Status: Work in progress, use at own risk 👷‍♀️⚠️
 
 ## 🎥 Demo (Screencast)
