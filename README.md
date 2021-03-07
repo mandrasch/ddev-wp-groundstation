@@ -10,8 +10,6 @@
 
 **DDEV WP Groundstation provides custom commands to empower you to work professionally with Wordpress, git and [DDEV-local](https://ddev.readthedocs.io/en/stable/).**
 
-Why not just use DDEVs built-in wordpress support? *DDEV is a great toolbox, but it implements Wordpress with the [roots/bedrock-Boilerplate](https://ddev.readthedocs.io/en/stable/users/cli-usage/#wordpress-quickstart) (composer). This starter works without composer since composer is not officially supported by Wordpress Core.* 
-
 ## 🎥 Demo (Screencast)
 
 - **Developing a child theme (coming soon)**
@@ -197,7 +195,11 @@ https://docs.wppusher.com/article/17-setting-up-a-plugin-or-theme-on-github
 
 3. **Start with ddev pull-wp again**
 
-## Advanced
+## Advanced / FAQ
+
+### Why?
+
+Why not just use DDEVs built-in wordpress support? *DDEV is a great toolbox, but it implements Wordpress with the [roots/bedrock-Boilerplate](https://ddev.readthedocs.io/en/stable/users/cli-usage/#wordpress-quickstart) (composer). This starter works without composer since composer is not officially supported by Wordpress Core.* 
 
 ### Local PHP/MySQL version
 
