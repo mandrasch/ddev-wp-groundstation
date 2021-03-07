@@ -32,7 +32,7 @@ This project contains custom DDEV commands such as `ddev install-wp`, `ddev setu
 1. Install [wppusher](https://docs.wppusher.com/) on your live site
 2. Set up the child theme and select subdirectory `wp-content/themes/your-childtheme`
 
-### 2. Pulling a live website (updraftplus)
+### 2. Pulling a live website (updraftplus $)
 
 This project contains [custom DDEV commands](https://ddev.readthedocs.io/en/stable/users/extend/custom-commands/) for pulling a live website to your local machine with just a single command. This is possible with the help of the WPCLI and site migration feature of [Updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/)($).
 
