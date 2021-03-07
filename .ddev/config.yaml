@@ -1,5 +1,5 @@
 # If you want to use this container multiple times, change name
-name: pull-wp
+name: wp-groundstation
 type: php
 docroot: "ddev-wordpress"
 php_version: "7.4"
