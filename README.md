@@ -1,4 +1,4 @@
-# DDEV WP Groundstation
+# DDEV WP Groundstation 🛰️
 
 Starting a new child theme? Just run `ddev install-wp` and develop the child theme in wp-content/themes/-folder.
 
@@ -8,12 +8,12 @@ Scared a wordpress update will break your old site? Why not test it locally befo
 
 ## Why not use DDEVs built-in wordpress support?
 
-DDEV is a great toolbox, but it implements Wordpress with the roots/bedrock-Boilerplate (composer). This starter works without composer since composer is not officially supported by Wordpress Core.  
+DDEV is a great toolbox, but it implements Wordpress with the [roots/bedrock-Boilerplate](https://ddev.readthedocs.io/en/stable/users/cli-usage/#wordpress-quickstart) (composer). This starter works without composer since composer is not officially supported by Wordpress Core.  
 
 ## 🎥 Demo (Screencast)
 
-- ** Developing a child theme (coming soon) **
-- ** Pulling a website [https://www.youtube.com/watch?v=9V9DmjIlrbI](https://www.youtube.com/watch?v=9V9DmjIlrbI)**
+- **Developing a child theme (coming soon)**
+- **Pulling a website [https://www.youtube.com/watch?v=9V9DmjIlrbI](https://www.youtube.com/watch?v=9V9DmjIlrbI)**
 
 ## How to use this starter
 
