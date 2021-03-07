@@ -26,8 +26,14 @@ This project contains custom DDEV commands such as `ddev install-wp`, `ddev setu
     ```shell
     cd ddev-wp-groundstation
     ```
+    
+2. **Change project in `.ddev/config.yaml`**
 
-2. **Install fresh wordpress locally**
+    ```shell
+    name: my-example-site
+    ```
+
+3. **Install fresh wordpress locally**
 
     ```shell
     ddev install-wp
