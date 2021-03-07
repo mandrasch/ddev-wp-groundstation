@@ -8,18 +8,24 @@ Scared a wordpress update will break your old site? Why not test it locally befo
 
 ## 🎥 Demo (Screencast)
 
-** Developing a child theme (coming soon) **
-** Pulling a website [https://www.youtube.com/watch?v=9V9DmjIlrbI](https://www.youtube.com/watch?v=9V9DmjIlrbI)**
+- ** Developing a child theme (coming soon) **
+- ** Pulling a website [https://www.youtube.com/watch?v=9V9DmjIlrbI](https://www.youtube.com/watch?v=9V9DmjIlrbI)**
 
-## Developing a child theme
+## Why not use DDEVs built-in wordpress support?
+
+DDEV is a great toolbox, but it implements Wordpress with the roots/bedrock-Boilerplate (composer). This starter works without composer since composer is not officially supported by Wordpress Core.  
+
+## How to use this starter
+
+### Developing a child theme
 
 (coming soon)
 
-### Deploying a child theme to the live site
+#### Deploying a child theme to the live site
 
 (coming soon)
 
-## Pulling a live website (updraftplus)
+### Pulling a live website (updraftplus)
 
 This project contains [custom DDEV commands](https://ddev.readthedocs.io/en/stable/users/extend/custom-commands/) for pulling a live website to your local machine with just a single command. This is possible with the help of the WPCLI and site migration feature of [Updraftplus premium](https://updraftplus.com/shop/updraftplus-premium/)($).
 
