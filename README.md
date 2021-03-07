@@ -1,29 +1,32 @@
-# DDEV Wordpress 
+# DDEV WP Groundstation
 
-Starting a new child theme? Just run `ddev install-wp` and develop the child theme in wp-content/themes/-folder!
+Starting a new child theme? Just run `ddev install-wp` and develop the child theme in wp-content/themes/-folder.
 
 Scared a wordpress update will break your old site? Why not test it locally beforehand with `ddev pull-wp`? 
  
 ⚠️ Status: Work in progress, use at own risk 👷‍♀️⚠️
+
+## Why not use DDEVs built-in wordpress support?
+
+DDEV is a great toolbox, but it implements Wordpress with the roots/bedrock-Boilerplate (composer). This starter works without composer since composer is not officially supported by Wordpress Core.  
 
 ## 🎥 Demo (Screencast)
 
 - ** Developing a child theme (coming soon) **
 - ** Pulling a website [https://www.youtube.com/watch?v=9V9DmjIlrbI](https://www.youtube.com/watch?v=9V9DmjIlrbI)**
 
-## Why not use DDEVs built-in wordpress support?
-
-DDEV is a great toolbox, but it implements Wordpress with the roots/bedrock-Boilerplate (composer). This starter works without composer since composer is not officially supported by Wordpress Core.  
-
 ## How to use this starter
 
 ### Developing a child theme
 
-(coming soon)
+1. `ddev install-wp`
+2. Create folder in wp-content/themes
+3. Run `ddev setup-symlinks`, this will create a symbolic link to /ddev-wordpress/-folder
 
 #### Deploying a child theme to the live site
 
-(coming soon)
+1. Install [wppusher](https://docs.wppusher.com/) on your live site
+2. Set up the child theme and select subdirectory `wp-content/themes/your-childtheme`
 
 ### Pulling a live website (updraftplus)
 
