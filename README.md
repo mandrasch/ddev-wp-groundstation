@@ -1,7 +1,8 @@
 # DDEV WP Groundstation 🛰️
 
-- Starting a new child theme? Just run `ddev install-wp` and develop the child theme in wp-content/themes/-folder.
-- Scared a wordpress update will break your old site? Why not test it locally beforehand? 
+- Starting a new child theme?
+- Scared a wordpress update will break your old site?
+- Looking for a simple workflow to git-control your child theme?
 
 DDEV WP Groundstation provides custom commands to work with Wordpress, git an DDEV.
  
