@@ -8,7 +8,7 @@
 - Scared a wordpress update will break your old site?
 - Looking for a simple workflow to git-control the child theme of a site?
 
-DDEV WP Groundstation provides custom commands to empower you to work professionally with Wordpress, git and [DDEV-local](https://ddev.readthedocs.io/en/stable/).
+DDEV WP Groundstation provides custom commands to empower you to work professionally with Wordpress, git and [DDEV-local](https://ddev.readthedocs.io/en/stable/). Current commands: `ddev install-wp`, `ddev setup-symlinks` and `ddev pull-wp`.
 
 Have fun!
 
@@ -18,8 +18,6 @@ Have fun!
 2. **Pulling a website [https://www.youtube.com/watch?v=9V9DmjIlrbI](https://www.youtube.com/watch?v=9V9DmjIlrbI)**
 
 ## Setup
-
-This project contains custom DDEV commands such as `ddev install-wp`, `ddev setup-symlinks` and `ddev pull-wp`.
 
 1. **"Use this template"**
 
