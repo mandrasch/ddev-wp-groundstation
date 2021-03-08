@@ -6,6 +6,8 @@
 
 ⚠️ Status: Work in progress, use at own risk 👷‍♀️⚠️
 
+![Workflow overview](screenshots/wp_groundstation.png)
+
 ## Description
 
 - Starting a new child theme?
