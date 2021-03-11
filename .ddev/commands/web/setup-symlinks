@@ -6,6 +6,8 @@
 
 # This script removes theme or plugins folders migrated via updraftplus and sets up a symlink to our tracked plugins and themes
 
+# It uses symlinks with -f option (force), therefore old symlinks are overwritten automatically
+
 # DON'T(!) use docroot of ddev here, this script needs to run in ./ root of git-project!
 cd /var/www/html/
 
