@@ -1,4 +1,6 @@
 # Ignore everything in ddev except for commands and config.yaml
+# Uncomment the next line if you have another git ignore all rule in parent folder
+# !/.ddev/
 /.ddev/*
 !/.ddev/config.yaml
 !/.ddev/commands/
