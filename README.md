@@ -6,6 +6,8 @@
 
 ⚠️ Status: Work in progress, use at own risk 👷‍♀️⚠️
 
+Update - October 2021: Published a new blog post without the use of updraftplus backup premium. See https://matthias-andrasch.eu/blog/2021/ddev-wordpress-cli-clone-a-live-site-to-your-local-laptop/
+
 ![Workflow overview](screenshots/wp_groundstation.png)
 
 ## Description
