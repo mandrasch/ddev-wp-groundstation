@@ -1,12 +1,18 @@
 
+### Update - October 2021: 
+
+- I published a new blog post without the use of updraftplus backup premium. See the blog post at https://matthias-andrasch.eu/blog/2021/ddev-wordpress-cli-clone-a-live-site-to-your-local-laptop/.
+- Also working on using [DDEV providers rsync scripts](https://ddev.readthedocs.io/en/stable/users/providers/provider-introduction/), they improved very much. Don't know when I'll be ready to publish an example with rsync.
+
+The former documentation:
+
+<hr>
 
 # DDEV WP Groundstation 🛰️
 
 *While your live sites circling the web like satellites, groundstation is your safe homebase for wordpress development in DDEV.*
 
 ⚠️ Status: Work in progress, use at own risk 👷‍♀️⚠️
-
-Update - October 2021: Published a new blog post without the use of updraftplus backup premium. See https://matthias-andrasch.eu/blog/2021/ddev-wordpress-cli-clone-a-live-site-to-your-local-laptop/
 
 ![Workflow overview](screenshots/wp_groundstation.png)
 
