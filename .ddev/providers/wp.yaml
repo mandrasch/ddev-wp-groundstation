@@ -1,0 +1,65 @@
+# Import a backwup .zip-file
+
+# !! MAKE SURE YOU GOT DDEV VERSION >= 1.18.2 !!
+# (Otherwise overriding files_import_command won't work)
+
+environment_variables:
+  # a) You can add your values directly:
+  # sshIntoWpFolder: sshUser@ssh-host.example.com:/web/your-domain.example.com/
+  # b) Or you retrieve these from .ddev/config.yaml:
+  sshIntoWpFolder: ${PRODUCTION_SSH_USER}@${PRODUCTION_SSH_HOST}:${PRODUCTION_SSH_PATH}
+  # Add the following to config.yaml and run 'ddev restart':
+  # web_environment:
+  # - PRODUCTION_SSH_USER=sshUser
+  # - PRODUCTION_SSH_HOST=ssh-host.example.com
+  # - PRODUCTION_SSH_PATH=/web/your-domain.example.com/
+  # 
+  # See: https://ddev.readthedocs.io/en/stable/users/extend/customization-extendibility/#providing-custom-environment-variables-to-a-container)
+
+# Add ssh keys to the user agent
+auth_command:
+  command: |
+    ssh-add -l >/dev/null || ( echo "Please 'ddev auth ssh' before running this command." && exit 1 )
+
+# Pull a fresh database dump via SSH
+# Three ways I found
+# TODO: Move this to docs
+# a) via WPCLI (https://developer.wordpress.org/cli/commands/db/export/), but WPCLI is not available on all webspaces?, check if it is installed via https://stackoverflow.com/questions/592620/how-can-i-check-if-a-program-exists-from-a-bash-script
+# a) bash https://tomjn.com/2014/03/01/wordpress-bash-magic/ + mysqldump (will not know if value was commented out)
+# b) PHP + mysqldump https://stackoverflow.com/a/45927977/809939 => but PHP is not available on all webspaces as well
+# The database url replace-search will be done later in files_import_command
+db_pull_command:
+  command: |
+    # set -x   # You can enable bash debugging output by uncommenting
+    set -eu -o pipefail
+    pushd "/var/www/html/${DDEV_DOCROOT}" >/dev/null
+    ssh ${sshIntoWpFolder} "if [ command -v wpcli version &> /dev/null ]; then echo "WPCLI is available on remote server"; fi"
+    # TODO: output to STDOUT 'wp db export'
+    # ssh user@host:path "wp db export| gzip -9 -c" > .ddev/.downloads/db.sql.gz
+    # TODO: if wpcli is not available, use bash:
+    # source <(php -r 'require("wp-config.php"); echo("DB_NAME=".DB_NAME."; DB_USER=".DB_USER."; DB_PASSWORD=".DB_PASSWORD); ')
+    # mysqldump --user $DB_USER --password="$DB_PASSWORD" $DB_NAME | gzip > $DB_NAME-$(date +%Y%m%d%H%M%S).sql.gz
+  service: web
+
+files_pull_command:
+  command: |
+    # set -x   # You can enable bash debugging output by uncommenting
+    set -eu -o pipefail
+    pushd /var/www/html/${DDEV_DOCROOT} >/dev/null
+    echo "Don't do it yet"
+  service: web
+
+# Final steps:
+#   a) Overwrite files in docroot, but without overwriting git-tracked files
+#      using .gitignore file
+#   b) Replace live site url (determined from backup) with DDEV_PRIMARY_URL
+#      (<your-project>.ddev.site) with help of WP-CLI
+#   TODO: re-generate permalinks? 
+#   TODO: update upload_path?
+files_import_command:
+  command: |
+    # set -x   # You can enable bash debugging output by uncommenting
+    set -eu -o pipefail
+    pushd "/var/www/html/${DDEV_DOCROOT}" >/dev/null
+    echo "Don't do it yet"
+  service: web

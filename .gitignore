@@ -1,6 +1,9 @@
 # ignore all ...
 *
 
+# But descend into directories
+!*/
+
 # ... but not: ddev providers
 !/.ddev/providers/wp.yaml
 
