@@ -53,6 +53,7 @@ db_pull_command:
     set -eu -o pipefail
     pushd "/var/www/html/${DDEV_DOCROOT}" >/dev/null
     echo "Connect to SSH and check if WP-CLI is available ..."
+    # TODO: is there a more robust way? Any unexpected output will cause an error?
     WP_CLI_AVAILABLE="$(ssh ${sshUser}@${sshHost} "cd ${sshWpDir} && if [[ -x 'command -v wp' ]]; then echo "1"; else echo "0"; fi")"
     if [ "$WP_CLI_AVAILABLE" = "1" ]; then echo "WP-CLI is available remotely"; else echo "WP-CLI not available remotely, we'll try mysqldump instead"; fi
     #
