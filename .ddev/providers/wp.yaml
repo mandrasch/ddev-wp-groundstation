@@ -2,7 +2,7 @@
 
 # !! MAKE SURE YOU GOT DDEV VERSION >= 1.18.2 !!
 # (Otherwise overriding files_import_command won't work)
-
+ 
 environment_variables:
   # a) You can add your values directly:
   # sshIntoWpFolder: sshUser@ssh-host.example.com:/web/your-domain.example.com/
