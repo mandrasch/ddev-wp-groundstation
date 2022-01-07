@@ -21,7 +21,7 @@
 /.ddev/*
 !/.ddev/providers
 /.ddev/providers/*
-!/.ddev/providers/wp.yaml
+!/.ddev/providers/wp-production.yaml
 
 # track child theme
 !/wp-content

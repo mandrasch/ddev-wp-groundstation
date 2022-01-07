@@ -29,8 +29,7 @@ DDEV WP Groundstation provides custom commands to empower you to work profession
 3. **Set up the DDEV project**
 
     ```bash
-    ddev config --project-type=wordpress
-    ddev start
+    ddev config --project-type=wordpress && ddev start
     ```
 
     This will create a .ddev/config.yaml-file, which can be shared via git 
@@ -38,12 +37,23 @@ DDEV WP Groundstation provides custom commands to empower you to work profession
 
 4. **Pull your live site**
 
+
     Requirements
 
     - SSH access (via SSH key)
     - mysqldump and php available via CLI
 
+    Replace `web_environment=[]` in your .ddev/config.yaml:
+
+    ```yaml
+    web_environment:
+      - PRODUCTION_SSH_USER=sshUser
+      - PRODUCTION_SSH_HOST=ssh-host.example.com
+      - PRODUCTION_SSH_PATH=/web/your-domain.example.com/
+    ```
     
+    Restart your project: `ddev restart
+
     TODO: https://stackoverflow.com/a/45927977/809939
 
 
