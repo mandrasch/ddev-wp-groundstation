@@ -14,11 +14,11 @@ Status: Beta v.0.2 - Rewrite for [DDEV >= 1.18](https://github.com/drud/ddev/rel
 - Looking for a simple workflow to git-manage a child theme?
 - You want to try things first in a safe local clone of your site?
 
-DDEV WP Groundstation is a simple template which empowers you to work professionally with WordPress site clone in a local dev instance. The open source tool [DDEV-local](https://ddev.readthedocs.io/en/stable/) provides isolated development enviroments and has built-in support of WP-CLI. Your live site will be pulled to your local dev instance via the new and improved [DDEV Providers / pull](https://ddev.readthedocs.io/en/stable/users/providers/provider-introduction/)-feature. Afterwards you can test all important changes locally.
+DDEV WP Groundstation is a simple template which empowers you to work professionally with WordPress site clone in a local dev instance. The open source tool [DDEV-local](https://ddev.readthedocs.io/en/stable/) provides isolated development enviroments and has built-in support of WP-CLI. Your live site will be pulled to your local dev instance via the new and improved [DDEV providers / pull](https://ddev.readthedocs.io/en/stable/users/providers/provider-introduction/)-feature. Afterwards you can test all important changes locally.
 
 
 ![Workflow overview](wp_groundstation.png)
-<br>*While your live sites circling the web like satellites, groundstation is your mission control headquarter for wordpress development.*
+<br>*While your live sites circling the web like satellites, groundstation is your mission control*
 
 ## Requirements:
 
