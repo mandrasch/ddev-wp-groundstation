@@ -56,16 +56,11 @@ db_pull_command:
     WP_CLI_AVAILABLE="$(ssh ${sshUser}@${sshHost} "cd ${sshWpDir} && if [[ -x 'command -v wp' ]]; then echo "1"; else echo "0"; fi")"
     if [ "$WP_CLI_AVAILABLE" = "1" ]; then echo "WP-CLI is available remotely"; else echo "WP-CLI not available remotely, we'll try mysqldump instead"; fi
     #
-    # If WP-CLI is available on server:
-    # Use 'wp db export' command, it'll use wp-config.php DB settings
+    # WP-CLI 'wp db export'
     # 
     if [ "$WP_CLI_AVAILABLE" = "1" ]; then ssh ${sshUser}@${sshHost} "cd ${sshWpDir} && wp db export | gzip -9 -c" > .ddev/.downloads/db.sql.gz; fi
     #
-    # If WP-CLI is not available, try with mysqldump:
-    # Use mysqldump and get db connection from wp-config.php via bash,
-    # thanks to https://tomjn.com/2014/03/01/wordpress-bash-magic/
-    # Important: Use backslash for mysqldump values, 
-    # thanks to https://stackoverflow.com/a/13826220
+    # mysqldump (if WP-CLI not available):
     #
     if [ "$WP_CLI_AVAILABLE" = "0" ]; then ssh ${sshUser}@${sshHost} "cd ${sshWpDir} && mysqldump --user=\$(cat wp-config.php | grep DB_USER | cut -d \' -f 4) --password=\$(cat wp-config.php | grep DB_PASSWORD | cut -d \' -f 4) --host=\$(cat wp-config.php | grep DB_HOST | cut -d \' -f 4) \$(cat wp-config.php | grep DB_NAME | cut -d \' -f 4) | gzip -9 -c" > .ddev/.downloads/db.sql.gz; fi
     # 
@@ -74,7 +69,8 @@ db_pull_command:
 # 3. Rsync all the files (except git-tracked ones)
 # 
 # We rsync files from remote to local docroot which are _not_ tracked via git
-# (This allows us to track a child theme in git and don't overwrite it)
+# (This allows us to track a child theme in git and doesnt't overwrite it. It is
+# achieved with --include-from='.gitignore' --exclude='*')
 files_pull_command:
   command: |
     # set -x   # You can enable bash debugging output by uncommenting
@@ -84,7 +80,7 @@ files_pull_command:
     # Add trailing slash for sshWpDir if missing, 
     # thanks to https://gist.github.com/luciomartinez/c322327605d40f86ee0c
     [[ "${sshWpDir}" != */ ]] && sshWpDir="${sshWpDir}/"
-    # Add -v to show all files which are transferred 
+    # Sync files from remote (${sshUser}@${sshHost}:${sshWpDir}) to local docroot (.)
     rsync -azh --progress --stats --include-from='.gitignore' --exclude='*' ${sshUser}@${sshHost}:${sshWpDir} .
   service: web
 
