@@ -1,9 +1,8 @@
 # DDEV WP Groundstation 🛰️
 
+Status: Beta v.0.2 - Rewrite for [DDEV >= 1.18](https://github.com/drud/ddev/releases)
 
-Status: Beta v.0.2 - rewrite for [DDEV >= 1.18]((https://github.com/drud/ddev/releases))
-
-*Please use it with caution and always backup important sites!*
+*Work in progress - please use it with caution and always backup important sites!*
 
 ## Screencast
 
@@ -15,7 +14,7 @@ Status: Beta v.0.2 - rewrite for [DDEV >= 1.18]((https://github.com/drud/ddev/re
 - Looking for a simple workflow to git-manage a child theme?
 - You want to try things first in a safe local clone of your site?
 
-DDEV WP Groundstation is a simple template which empowers you to work professionally with WordPress in a local development instance. [DDEV-local](https://ddev.readthedocs.io/en/stable/) provides isolated development enviroments and has built-in support of WP-CLI. Your live site will be pulled to your local dev instance via the new and improved [DDEV Providers / pull](https://ddev.readthedocs.io/en/stable/users/providers/provider-introduction/)-feature. 
+DDEV WP Groundstation is a simple template which empowers you to work professionally with WordPress site clone in a local dev instance. The open source tool [DDEV-local](https://ddev.readthedocs.io/en/stable/) provides isolated development enviroments and has built-in support of WP-CLI. Your live site will be pulled to your local dev instance via the new and improved [DDEV Providers / pull](https://ddev.readthedocs.io/en/stable/users/providers/provider-introduction/)-feature. Afterwards you can test all important changes locally.
 
 
 ![Workflow overview](wp_groundstation.png)
@@ -49,7 +48,7 @@ DDEV WP Groundstation is a simple template which empowers you to work profession
     ddev config --project-type=wordpress && ddev start
     ```
 
-    Technical background: This will create a `.ddev/config.yaml-file`, See [config.yaml](https://ddev.readthedocs.io/en/stable/users/extend/config_yaml/)-docs for available options (PHP version, MariaDB/MySQL version, Apache/Nginx, etc. The file can be shared via git as well in teams, just uncomment the line `# !/.ddev/config.yaml` in `.gitignore`.
+    Technical background: This will create a `.ddev/config.yaml-file`, see [config.yaml](https://ddev.readthedocs.io/en/stable/users/extend/config_yaml/)-docs for available options (PHP version, MariaDB/MySQL version, Apache/Nginx, etc. The file can be shared via git as well in teams, just uncomment the line `# !/.ddev/config.yaml` in `.gitignore`.
 
 5. **Add your live sites SSH connection**
 
@@ -72,7 +71,7 @@ DDEV WP Groundstation is a simple template which empowers you to work profession
     
     `ddev pull wp-production`
 
-    This will pull all files and the database into your local project folder. The live sites URL will be replaced with your local project URL (*\<your-folder\>.ddev.site*) and database settings will be changed in wp-config.php to connect with the local DDEV database. See `.ddev/providers/wp-production.yaml` for all steps.
+    This will pull all files and the database into your local project folder. The live sites URL will be replaced with your local project URL (*\<your-folder\>.ddev.site*) in the local database. Database connection settings will be changed in wp-config.php to connect with the local DDEV database. See `.ddev/providers/wp-production.yaml` for all steps.
 
     If everything worked, open your locally cloned site in the browser:
 
@@ -91,7 +90,7 @@ DDEV WP Groundstation is a simple template which empowers you to work profession
 ## TODOs
 
 - [ ] Test `wp db export`, only tested mysqldump
-- [ ] Test with multiple webhosts
+- [ ] Test with multiple webhosts / webspace providers
 
 ## Reset
 

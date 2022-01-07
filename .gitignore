@@ -10,6 +10,8 @@
 # track README & License
 !/README.md
 !/LICENSE
+!/wp_groundstation.png
+!/wppusher_example.png
 
 # track ddev config 
 # !/.ddev/config.yaml
