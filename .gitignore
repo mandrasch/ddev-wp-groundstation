@@ -1,35 +1,27 @@
-# Ignore everything in ddev except for commands and config.yaml
-# Uncomment the next line if you have another git ignore all rule in parent folder
-# !/.ddev/
-/.ddev/*
-!/.ddev/config.yaml
-!/.ddev/commands/
-/.ddev/commands/*
-#TODO: delete host, we only run on web container
-!/.ddev/commands/host/
-/.ddev/commands/host/*
-!/.ddev/commands/host/delete-wp
-!/.ddev/commands/web/
-/.ddev/commands/web/*
-!/.ddev/commands/web/pull-wp
-!/.ddev/commands/web/pull-wp-hybrid-mode-old
-!/.ddev/commands/web/install-wp
-!/.ddev/commands/web/delete-backups
-!/.ddev/commands/web/reset-wp
-!/.ddev/commands/web/setup-symlinks
-!/.ddev/commands/web/create-local-backup
+# ignore all ...
+*
 
-# Ignore ddev wordpress docroot
-/ddev-wordpress/*
+# ... but not: ddev providers
+!/.ddev/providers/wp.yaml
 
-# Ignore nonce file from install
-fresh_install_nonce.txt
+# ... but not: ddev config (uncomment if you want to git track / share
+# it in your project, recommended for team projects)
+# !/.ddev/config.yaml
 
-# Ignore content of symlinked themes (these are controlled by separate sub-git)
-/symlinked-themes/*
-!/symlinked-themes/.gitkeep
-/symlinked-plugins/*
-!/symlinked-plugins/.gitkeep
+# ... but not child theme (via unignore pattern)
+# (first unignore, than ignore all but specific folders again)
+!/wp-content
+/wp-content/*
+!/wp-content/themes
+/wp-content/themes/*
+!/wp-content/themes/twentytwentyone-child
+
+# except gitignore
+!.gitignore
+
+# except README & License
+!/README.md
+!/LICENSE
 
 # Defaults:
 

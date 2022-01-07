@@ -1,20 +1,66 @@
-
-### Update - October 2021: 
-
-- I published a new blog post without the use of updraftplus backup premium. See the blog post at https://matthias-andrasch.eu/blog/2021/ddev-wordpress-cli-clone-a-live-site-to-your-local-laptop/.
-- Also working on using [DDEV providers rsync scripts](https://ddev.readthedocs.io/en/stable/users/providers/provider-introduction/), they improved very much. Don't know when I'll be ready to publish an example with rsync.
-
-The former documentation:
-
-<hr>
-
 # DDEV WP Groundstation 🛰️
 
 *While your live sites circling the web like satellites, groundstation is your safe homebase for wordpress development in DDEV.*
 
-⚠️ Status: Work in progress, use at own risk 👷‍♀️⚠️
+⚠️ Status: Work in progress, use at own risk 👷‍♀️ ⚠️
+
+⚠️ Make sure your DDEV is newer than 1.18! 👷‍♀️ ⚠️
+
+## Description
+
+- Starting a new child theme?
+- Scared a wordpress update will break your old site?
+- Looking for a simple workflow to git-control the child theme of a site?
+
+DDEV WP Groundstation provides custom commands to empower you to work professionally with Wordpress, git and [DDEV-local](https://ddev.readthedocs.io/en/stable/). It uses the new DDEV Providers / Pull feature.
 
 ![Workflow overview](screenshots/wp_groundstation.png)
+
+## Setup
+
+1. **"Use this template"**
+
+    Click "Use this template", setup your own repository.
+    
+2. **Clone it**
+
+     Clone the newly created repository to your local computer.
+
+3. **Set up the DDEV project**
+
+    ```bash
+    ddev config --project-type=wordpress
+    ddev start
+    ```
+
+    This will create a .ddev/config.yaml-file, which can be shared via git 
+    in your team. Just remove the comment from `# !/.ddev/config.yaml` in `.gitignore`. See [config.yaml](https://ddev.readthedocs.io/en/stable/users/extend/config_yaml/)-docs for available options (PHP version, MariaDB/MySQL version, Apache/Nginx, etc.)
+
+4. **Pull your live site**
+
+    Requirements
+
+    - SSH access (via SSH key)
+    - mysqldump and php available via CLI
+
+    
+    TODO: https://stackoverflow.com/a/45927977/809939
+
+
+Other methods: 
+    b) Fresh install:
+    
+    See https://ddev.readthedocs.io/en/stable/users/cli-usage/#wordpress-quickstart
+    
+    c) Download a backwpup .zip-file:
+    https://github.com/mandrasch/ddev-pull-backwpupfile
+
+
+
+<hr>
+
+Old docs:
+
 
 ## Description
 

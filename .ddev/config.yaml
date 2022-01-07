@@ -12,3 +12,8 @@ additional_fqdns: []
 provider: default
 use_dns_when_possible: true
 mysql_version: 5.7
+
+web_environment:
+  - PRODUCTION_SSH_USER=ssh
+  - PRODUCTION_SSH_HOST=ngcobalt384.manitu.net
+  - PRODUCTION_SSH_PATH=/web/nature-blog.mandrasch.eu/
