@@ -1,6 +1,6 @@
 # DDEV WP Groundstation 🛰️
 
-Status: Beta v.0.2 - Rewrite for [DDEV >= 1.18](https://github.com/drud/ddev/releases)
+Status: Beta v.0.2 - Rewrite for [DDEV >= 1.18.2](https://github.com/drud/ddev/releases/tag/v1.18.2)
 
 *Work in progress - please use it with caution and always backup important sites!*
 
