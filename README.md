@@ -48,7 +48,7 @@ DDEV WP Groundstation is a simple template which empowers you to work profession
     ddev config --project-type=wordpress && ddev start
     ```
 
-    Technical background: This will create a `.ddev/config.yaml-file`, see [config.yaml](https://ddev.readthedocs.io/en/stable/users/extend/config_yaml/)-docs for available options (PHP version, MariaDB/MySQL version, Apache/Nginx, etc. The file can be shared via git as well in teams, just uncomment the line `# !/.ddev/config.yaml` in `.gitignore`.
+    Technical background: This will create a `.ddev/config.yaml-file`, see [config.yaml](https://ddev.readthedocs.io/en/stable/users/extend/config_yaml/)-docs for available options (PHP version, MariaDB/MySQL version, Apache/Nginx, etc.). The file can be shared via git as well in teams, just uncomment the line `# !/.ddev/config.yaml` in `.gitignore`.
 
 5. **Add your live sites SSH connection**
 
@@ -77,7 +77,7 @@ DDEV WP Groundstation is a simple template which empowers you to work profession
 
     `ddev launch`
 
-7. **Add child theme to your live site via WPPusher**
+7. **Add child theme to your live site via WPPusher (or else)**
 
     [WPPusher](https://wppusher.com/) has the great ability to add themes from subfolders, therefore it is very easy to add a child theme from a git project:
 
@@ -85,11 +85,13 @@ DDEV WP Groundstation is a simple template which empowers you to work profession
 
     Your webspace doesn't need git support, WPPusher works via Web-Api to get the latest files.
 
+    You could as well use a GitHub action pipeline and deploy your subfolder to your webspace via rsync or FTP deploy. 
+
     You need to edit `.gitignore` in order to track your child theme. If it is added in `.gitignore`, it won't be overriden if you pull from your live site.
 
 ## TODOs
 
-- [ ] Test `wp db export`, only tested mysqldump
+- [ ] Test `wp db export`, only tested mysqldump by now
 - [ ] Test with multiple webhosts / webspace providers
 
 ## Reset
