@@ -22,7 +22,7 @@ DDEV WP Groundstation is a simple template which empowers you to work profession
 
 ## Requirements:
 
-1. ⚠️ DDEV newer than [1.18](https://github.com/drud/ddev/releases), check via `ddev -v`
+1. ⚠️ DDEV newer than [1.18.2](https://github.com/drud/ddev/releases), check via `ddev -v`
 1. Your webspace needs SSH connection capabilities (via SSH key)
 1. Your webspace needs WP-CLI or mysqldump support
 
