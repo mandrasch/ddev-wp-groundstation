@@ -1,5 +1,9 @@
 # Ignore all ...
-*
+# This /* works for git,
+/*
+
+# but only this works for rsync? otherwise files are not copied?!
+# *
 
 # ... but track specific files / folders: 
 # (see https://stackoverflow.com/a/29012085/809939)

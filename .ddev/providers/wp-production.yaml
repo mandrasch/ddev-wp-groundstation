@@ -18,6 +18,8 @@ environment_variables:
   sshUser: ${PRODUCTION_SSH_USER}
   sshHost: ${PRODUCTION_SSH_HOST}
   sshWpDir: ${PRODUCTION_SSH_WP_DIR}
+  childThemeFolder: ${CHILD_THEME_FOLDER_NAME}
+  
   # These values are loaded via .ddev/config.yaml, you need 
   # to add the following to .ddev/config.yaml and run 'ddev restart':
   # 
@@ -81,8 +83,12 @@ files_pull_command:
     # Add trailing slash for sshWpDir if missing, 
     # thanks to https://gist.github.com/luciomartinez/c322327605d40f86ee0c
     [[ "${sshWpDir}" != */ ]] && sshWpDir="${sshWpDir}/"
+    # TODO: use reverse .gitignore file to include, but include-from does not work with /path/-, only used for patterns
     # Sync files from remote (${sshUser}@${sshHost}:${sshWpDir}) to local docroot (.)
-    rsync -azh --progress --stats --include-from='.gitignore' --exclude='*' ${sshUser}@${sshHost}:${sshWpDir} .
+    # not working, because it uses pattern, but .gitignore uses paths --> rsync -azh --progress --stats --include-from='.gitignore' --exclude='*' ${sshUser}@${sshHost}:${sshWpDir} .
+    # not working as well rsync -azhvv --progress --stats --filter='merge,+ .gitignore' ${sshUser}@${sshHost}:${sshWpDir} .
+    # current implementation:
+    rsync -azh --progress --stats --exclude="wp-content/themes/${childThemeFolder}" --exclude=".git/" --exclude=".ddev/" ${sshUser}@${sshHost}:${sshWpDir} .
   service: web
 
 # 4. Set database connection + migrate URLs in DB
