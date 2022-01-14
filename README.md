@@ -1,3 +1,31 @@
+# Outdated repository
+
+**This project was moved to:**
+
+https://github.com/mandrasch/ddev-pull-wp-scripts
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+
+
+
+
+
 # DDEV WP Groundstation 🛰️
 
 Status: Beta v.0.2 - Rewrite for [DDEV >= 1.18.2](https://github.com/drud/ddev/releases/tag/v1.18.2)
